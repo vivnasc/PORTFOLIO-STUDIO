@@ -5,6 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script defer data-domain="energyos.vercel.app" src="https://plausible.io/js/script.js"></script>
+  <meta name="description" content="Stop scheduling deep work when your brain is dead. EnergyOS maps your body rhythms to optimize your calendar.">
 </head>
 <body class="bg-gray-50">
   <div class="max-w-4xl mx-auto px-4 py-16">
@@ -13,6 +15,7 @@
       <h1 class="text-5xl font-bold mb-4">Stop Scheduling Deep Work When Your Brain Is Dead</h1>
       <p class="text-xl text-gray-600 mb-8">EnergyOS learns when you're sharp and when you're fried—then tells you what to do when. Your calendar doesn't know your body. EnergyOS does.</p>
       <form action="https://formspree.io/f/YOUR_ID" method="POST">
+        <input type="hidden" name="product" value="energyos" />
         <input type="email" name="email" placeholder="Enter your email" class="px-6 py-3 rounded-lg border border-gray-300 w-80" required />
         <button type="submit" class="ml-2 px-8 py-3 bg-black text-white rounded-lg hover:bg-gray-800">Get Your Energy Map</button>
       </form>
@@ -65,12 +68,13 @@
     <div class="text-center">
       <h2 class="text-3xl font-bold mb-4">Get Your Energy Map</h2>
       <form action="https://formspree.io/f/YOUR_ID" method="POST">
+        <input type="hidden" name="product" value="energyos" />
         <input type="email" name="email" placeholder="your@email.com" class="px-6 py-3 rounded-lg border border-gray-300 w-80" required />
         <button type="submit" class="ml-2 px-8 py-3 bg-black text-white rounded-lg hover:bg-gray-800">Get Your Energy Map</button>
       </form>
     </div>
   </div>
 
-  <script defer data-domain="energyos.io" src="https://plausible.io/js/script.js"></script>
+
 </body>
 </html>

@@ -5,6 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script defer data-domain="peopledb.vercel.app" src="https://plausible.io/js/script.js"></script>
+  <meta name="description" content="Never forget an important contact again. PeopleDB is your AI-powered personal CRM.">
 </head>
 <body class="bg-gray-50">
   <div class="max-w-4xl mx-auto px-4 py-16">
@@ -13,6 +15,7 @@
       <h1 class="text-5xl font-bold mb-4">You Met Someone Amazing 3 Months Ago. Can You Remember Their Name?</h1>
       <p class="text-xl text-gray-600 mb-8">PeopleDB is your personal CRM—tracking every relationship so no connection goes cold, no follow-up is forgotten, and no opportunity slips away because you "meant to reach out."</p>
       <form action="https://formspree.io/f/YOUR_ID" method="POST">
+        <input type="hidden" name="product" value="peopledb" />
         <input type="email" name="email" placeholder="Enter your email" class="px-6 py-3 rounded-lg border border-gray-300 w-80" required />
         <button type="submit" class="ml-2 px-8 py-3 bg-black text-white rounded-lg hover:bg-gray-800">Save Your Relationships</button>
       </form>
@@ -65,12 +68,13 @@
     <div class="text-center">
       <h2 class="text-3xl font-bold mb-4">Save Your Relationships</h2>
       <form action="https://formspree.io/f/YOUR_ID" method="POST">
+        <input type="hidden" name="product" value="peopledb" />
         <input type="email" name="email" placeholder="your@email.com" class="px-6 py-3 rounded-lg border border-gray-300 w-80" required />
         <button type="submit" class="ml-2 px-8 py-3 bg-black text-white rounded-lg hover:bg-gray-800">Save Your Relationships</button>
       </form>
     </div>
   </div>
 
-  <script defer data-domain="peopledb.io" src="https://plausible.io/js/script.js"></script>
+
 </body>
 </html>

@@ -5,6 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script defer data-domain="riskloop.vercel.app" src="https://plausible.io/js/script.js"></script>
+  <meta name="description" content="Stop repeating the decisions that keep costing you. RiskLoop detects your behavioral patterns before they cost you again.">
 </head>
 <body class="bg-gray-50">
   <div class="max-w-4xl mx-auto px-4 py-16">
@@ -13,6 +15,7 @@
       <h1 class="text-5xl font-bold mb-4">That Decision You Just Made? You Made It Before. It Didn't End Well Then Either.</h1>
       <p class="text-xl text-gray-600 mb-8">RiskLoop detects the behavioral patterns you can't see—the ones that keep costing you time, money, and energy. Before you repeat the cycle, RiskLoop catches it.</p>
       <form action="https://formspree.io/f/YOUR_ID" method="POST">
+        <input type="hidden" name="product" value="riskloop" />
         <input type="email" name="email" placeholder="Enter your email" class="px-6 py-3 rounded-lg border border-gray-300 w-80" required />
         <button type="submit" class="ml-2 px-8 py-3 bg-black text-white rounded-lg hover:bg-gray-800">Break Your Patterns</button>
       </form>
@@ -65,12 +68,13 @@
     <div class="text-center">
       <h2 class="text-3xl font-bold mb-4">Break Your Patterns</h2>
       <form action="https://formspree.io/f/YOUR_ID" method="POST">
+        <input type="hidden" name="product" value="riskloop" />
         <input type="email" name="email" placeholder="your@email.com" class="px-6 py-3 rounded-lg border border-gray-300 w-80" required />
         <button type="submit" class="ml-2 px-8 py-3 bg-black text-white rounded-lg hover:bg-gray-800">Break Your Patterns</button>
       </form>
     </div>
   </div>
 
-  <script defer data-domain="riskloop.app" src="https://plausible.io/js/script.js"></script>
+
 </body>
 </html>
