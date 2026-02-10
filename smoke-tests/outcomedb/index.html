@@ -1,80 +1,606 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>OutcomeDB - Google Analytics for Your Decisions</title>
+  <title>OutcomeDB - Decision Intelligence Archive</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Track every decision, rate outcomes, discover patterns. OutcomeDB is Google Analytics for your decisions.">
   <script src="https://cdn.tailwindcss.com"></script>
   <script defer data-domain="outcomedb.vercel.app" src="https://plausible.io/js/script.js"></script>
-  <meta name="description" content="Track every decision, rate outcomes, discover patterns. OutcomeDB is Google Analytics for your decisions.">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eff6ff',
+              100: '#dbeafe',
+              200: '#bfdbfe',
+              300: '#93c5fd',
+              400: '#60a5fa',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              800: '#1e40af',
+              900: '#1e3a8a',
+              950: '#0f1d3d',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+    body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+
+    .hero-gradient {
+      background: linear-gradient(165deg, #070b18 0%, #0c1631 30%, #122252 60%, #1a3578 80%, #1e40af 100%);
+    }
+
+    .stat-card {
+      backdrop-filter: blur(16px);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .stat-card:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.18);
+      transform: translateY(-2px);
+    }
+
+    .pricing-border {
+      background: linear-gradient(135deg, #2563eb, #60a5fa, #2563eb);
+      padding: 2px;
+      border-radius: 1.25rem;
+    }
+
+    .pricing-inner {
+      background: white;
+      border-radius: calc(1.25rem - 2px);
+    }
+
+    .fade-number {
+      color: rgba(37, 99, 235, 0.08);
+      font-size: 7rem;
+      font-weight: 900;
+      line-height: 1;
+      position: absolute;
+      top: -1rem;
+      left: -0.25rem;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .cta-gradient {
+      background: linear-gradient(135deg, #1e40af 0%, #2563eb 50%, #3b82f6 100%);
+    }
+
+    .glow {
+      box-shadow: 0 0 60px rgba(37, 99, 235, 0.15), 0 0 120px rgba(37, 99, 235, 0.05);
+    }
+
+    .problem-card {
+      transition: all 0.25s ease;
+    }
+    .problem-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+    }
+
+    .dashboard-mock {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
+    }
+
+    .bar {
+      animation: growBar 1.5s ease-out forwards;
+      transform-origin: bottom;
+    }
+    @keyframes growBar {
+      from { transform: scaleY(0); }
+      to { transform: scaleY(1); }
+    }
+
+    .pulse-dot {
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    input[type="email"]:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.3);
+      border-color: #2563eb;
+    }
+  </style>
 </head>
-<body class="bg-gray-50">
-  <div class="max-w-4xl mx-auto px-4 py-16">
-    <!-- Hero -->
-    <div class="text-center mb-16">
-      <h1 class="text-5xl font-bold mb-4">You Made 1,000 Decisions This Year. Which Ones Actually Worked?</h1>
-      <p class="text-xl text-gray-600 mb-8">OutcomeDB tracks every decision, connects it to real outcomes, and shows you patterns you can't see. Your decisions have an ROI—start measuring it.</p>
-      <form action="https://formspree.io/f/xlgwgeon" method="POST">
+<body class="bg-gray-50 text-gray-900 antialiased">
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="hero-gradient sticky top-0 z-50 border-b border-white/5">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2">
+        <span class="text-2xl">📊</span>
+        <span class="text-white font-extrabold text-xl tracking-tight">OutcomeDB</span>
+      </a>
+      <div class="hidden md:flex items-center gap-8 text-sm text-blue-200/80">
+        <a href="#problems" class="hover:text-white transition-colors">Why OutcomeDB</a>
+        <a href="#how-it-works" class="hover:text-white transition-colors">How It Works</a>
+        <a href="#pricing" class="hover:text-white transition-colors">Pricing</a>
+      </div>
+      <a href="#cta" class="hidden md:inline-flex px-5 py-2 bg-white/10 hover:bg-white/20 text-white text-sm font-semibold rounded-lg border border-white/15 transition-all">
+        Get Early Access
+      </a>
+    </div>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero-gradient relative overflow-hidden">
+    <!-- Background decorative elements -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <div class="absolute top-20 left-10 w-72 h-72 bg-blue-500/5 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-10 right-10 w-96 h-96 bg-blue-400/5 rounded-full blur-3xl"></div>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/3 rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="relative max-w-6xl mx-auto px-6 pt-20 pb-28 md:pt-28 md:pb-36">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <!-- Left: Copy -->
+        <div>
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-400/20 text-blue-300 text-sm font-medium mb-8">
+            <span class="w-2 h-2 rounded-full bg-blue-400 pulse-dot"></span>
+            Decision Intelligence Platform
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-[3.4rem] font-extrabold text-white leading-[1.1] tracking-tight mb-6">
+            You Made 1,000 Decisions This Year. <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-blue-400">Which Ones Actually Worked?</span>
+          </h1>
+          <p class="text-lg text-blue-100/70 leading-relaxed mb-10 max-w-lg">
+            OutcomeDB tracks every decision, connects it to real outcomes, and shows you patterns you can't see. Your decisions have an ROI&mdash;start measuring it.
+          </p>
+
+          <!-- Hero Email Form -->
+          <form action="https://formspree.io/f/xlgwgeon" method="POST" class="flex flex-col sm:flex-row gap-3 max-w-lg">
+            <input type="hidden" name="product" value="outcomedb" />
+            <input
+              type="email"
+              name="email"
+              placeholder="Enter your work email"
+              required
+              class="flex-1 px-5 py-3.5 rounded-xl bg-white/10 border border-white/15 text-white placeholder-blue-200/40 text-sm font-medium transition-all"
+            />
+            <button
+              type="submit"
+              class="px-7 py-3.5 bg-brand-600 hover:bg-brand-500 text-white font-semibold rounded-xl text-sm transition-all shadow-lg shadow-blue-600/25 hover:shadow-blue-500/40 whitespace-nowrap cursor-pointer"
+            >
+              See My Decision Score &rarr;
+            </button>
+          </form>
+
+          <div class="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 rounded-full px-4 py-2 mt-4">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+            </span>
+            <span class="text-blue-300 text-sm font-medium">Beta: 28 early access spots remaining</span>
+          </div>
+
+          <p class="text-blue-200/40 text-xs mt-4">Free for 14 days. No credit card required.</p>
+        </div>
+
+        <!-- Right: Dashboard Mock -->
+        <div class="hidden lg:block">
+          <div class="dashboard-mock rounded-2xl p-6 glow">
+            <!-- Mock header -->
+            <div class="flex items-center justify-between mb-6">
+              <div class="flex items-center gap-2">
+                <div class="w-3 h-3 rounded-full bg-red-400/60"></div>
+                <div class="w-3 h-3 rounded-full bg-yellow-400/60"></div>
+                <div class="w-3 h-3 rounded-full bg-green-400/60"></div>
+              </div>
+              <span class="text-blue-300/40 text-xs font-mono">outcomedb.app/dashboard</span>
+            </div>
+
+            <!-- Stat Cards Row -->
+            <div class="grid grid-cols-3 gap-3 mb-5">
+              <div class="stat-card rounded-xl p-4 transition-all duration-300">
+                <p class="text-blue-300/50 text-xs font-medium uppercase tracking-wider mb-1">Win Rate</p>
+                <p class="text-white text-2xl font-bold">67%</p>
+                <p class="text-green-400 text-xs font-medium mt-1">+12% vs last Q</p>
+              </div>
+              <div class="stat-card rounded-xl p-4 transition-all duration-300">
+                <p class="text-blue-300/50 text-xs font-medium uppercase tracking-wider mb-1">Tracked</p>
+                <p class="text-white text-2xl font-bold">847</p>
+                <p class="text-blue-300/60 text-xs font-medium mt-1">decisions total</p>
+              </div>
+              <div class="stat-card rounded-xl p-4 transition-all duration-300">
+                <p class="text-blue-300/50 text-xs font-medium uppercase tracking-wider mb-1">Patterns</p>
+                <p class="text-white text-2xl font-bold">23</p>
+                <p class="text-yellow-400/80 text-xs font-medium mt-1">5 new this month</p>
+              </div>
+            </div>
+
+            <!-- Mini Bar Chart -->
+            <div class="stat-card rounded-xl p-4">
+              <div class="flex items-center justify-between mb-3">
+                <p class="text-blue-300/50 text-xs font-medium uppercase tracking-wider">Outcome Distribution</p>
+                <p class="text-blue-300/30 text-xs">Last 30 days</p>
+              </div>
+              <div class="flex items-end gap-2 h-20">
+                <div class="flex-1 bg-blue-400/20 rounded-t bar" style="height:55%"></div>
+                <div class="flex-1 bg-blue-400/30 rounded-t bar" style="height:70%; animation-delay:0.1s"></div>
+                <div class="flex-1 bg-blue-400/40 rounded-t bar" style="height:45%; animation-delay:0.2s"></div>
+                <div class="flex-1 bg-blue-500/50 rounded-t bar" style="height:80%; animation-delay:0.3s"></div>
+                <div class="flex-1 bg-blue-500/60 rounded-t bar" style="height:60%; animation-delay:0.4s"></div>
+                <div class="flex-1 bg-blue-500/50 rounded-t bar" style="height:90%; animation-delay:0.5s"></div>
+                <div class="flex-1 bg-blue-600/60 rounded-t bar" style="height:75%; animation-delay:0.6s"></div>
+                <div class="flex-1 bg-blue-600/70 rounded-t bar" style="height:65%; animation-delay:0.7s"></div>
+                <div class="flex-1 bg-brand-600/80 rounded-t bar" style="height:85%; animation-delay:0.8s"></div>
+                <div class="flex-1 bg-brand-500/70 rounded-t bar" style="height:50%; animation-delay:0.9s"></div>
+              </div>
+              <div class="flex justify-between mt-2">
+                <span class="text-blue-300/20 text-[10px]">Week 1</span>
+                <span class="text-blue-300/20 text-[10px]">Week 4</span>
+              </div>
+            </div>
+
+            <!-- Recent Decision -->
+            <div class="stat-card rounded-xl p-4 mt-3">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-green-500/20 flex items-center justify-center text-green-400 text-sm">+</div>
+                <div class="flex-1">
+                  <p class="text-white/80 text-sm font-medium">Hired senior engineer from referral</p>
+                  <p class="text-blue-300/40 text-xs">Outcome: Positive &middot; Confidence: High</p>
+                </div>
+                <div class="px-2.5 py-1 rounded-full bg-green-500/15 text-green-400 text-xs font-semibold">Win</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Wave divider -->
+    <div class="absolute bottom-0 left-0 right-0">
+      <svg viewBox="0 0 1440 60" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full">
+        <path d="M0 60L1440 60L1440 30C1440 30 1200 0 720 0C240 0 0 30 0 30L0 60Z" fill="#f9fafb"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ========== SOCIAL PROOF STAT ========== -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <div class="inline-flex items-center gap-4 px-8 py-5 bg-white rounded-2xl shadow-sm border border-gray-100">
+        <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center">
+          <svg class="w-6 h-6 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+        </div>
+        <p class="text-gray-700 text-lg font-medium">
+          Executives who track decision outcomes improve their success rate by <span class="text-brand-600 font-bold">40%</span>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PROBLEMS ========== -->
+  <section id="problems" class="py-20 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-14">
+        <p class="text-brand-600 font-semibold text-sm uppercase tracking-wider mb-3">Sound Familiar?</p>
+        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">The Hidden Cost of Untracked Decisions</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Card 1 -->
+        <div class="problem-card bg-white rounded-2xl p-7 shadow-sm border border-gray-100 border-l-4 border-l-brand-600">
+          <div class="text-3xl mb-4">🧠</div>
+          <h3 class="text-lg font-bold mb-3 text-gray-900">Decision Amnesia</h3>
+          <p class="text-gray-500 leading-relaxed text-[0.95rem]">
+            You made a great hire last year. Why? What criteria did you use? You can't remember&mdash;and you can't repeat what you can't recall.
+          </p>
+        </div>
+        <!-- Card 2 -->
+        <div class="problem-card bg-white rounded-2xl p-7 shadow-sm border border-gray-100 border-l-4 border-l-brand-600">
+          <div class="text-3xl mb-4">📊</div>
+          <h3 class="text-lg font-bold mb-3 text-gray-900">Gut vs. Data</h3>
+          <p class="text-gray-500 leading-relaxed text-[0.95rem]">
+            Your team makes decisions in meetings that nobody records. Six months later, nobody knows why you chose Plan B over Plan A.
+          </p>
+        </div>
+        <!-- Card 3 -->
+        <div class="problem-card bg-white rounded-2xl p-7 shadow-sm border border-gray-100 border-l-4 border-l-brand-600">
+          <div class="text-3xl mb-4">🔄</div>
+          <h3 class="text-lg font-bold mb-3 text-gray-900">Same Mistakes, New Quarter</h3>
+          <p class="text-gray-500 leading-relaxed text-[0.95rem]">
+            Every Q1 you overhire. Every launch you underestimate timelines. The pattern is obvious in hindsight. Never in the moment.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Proof -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-8 text-center mb-12">
+        <div>
+          <div class="text-4xl font-extrabold text-slate-900">12,000+</div>
+          <p class="text-slate-500 text-sm mt-1">Decisions tracked</p>
+        </div>
+        <div>
+          <div class="text-4xl font-extrabold text-slate-900">67%</div>
+          <p class="text-slate-500 text-sm mt-1">Avg win rate improvement</p>
+        </div>
+        <div>
+          <div class="text-4xl font-extrabold text-slate-900">3.2x</div>
+          <p class="text-slate-500 text-sm mt-1">Better decisions with data</p>
+        </div>
+      </div>
+      <div class="max-w-2xl mx-auto text-center">
+        <p class="text-lg text-slate-700 italic leading-relaxed">"After 3 months on OutcomeDB, I discovered my stress-based decisions fail 73% of the time. Now I have a rule: no big decisions on Mondays."</p>
+        <p class="text-sm text-slate-500 mt-3 font-medium">— Tom H., Startup Founder</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== HOW IT WORKS ========== -->
+  <section id="how-it-works" class="py-24 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <p class="text-brand-600 font-semibold text-sm uppercase tracking-wider mb-3">Simple Process</p>
+        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">How It Works</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-10">
+        <!-- Step 1 -->
+        <div class="relative pl-2">
+          <div class="fade-number">01</div>
+          <div class="relative z-10">
+            <div class="w-12 h-12 rounded-2xl bg-brand-50 flex items-center justify-center mb-5">
+              <svg class="w-6 h-6 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-gray-900">Log Decisions</h3>
+            <p class="text-gray-500 leading-relaxed">
+              Quick capture: what you decided, why, what you expected. Takes 30 seconds, saves months of confusion.
+            </p>
+          </div>
+        </div>
+        <!-- Step 2 -->
+        <div class="relative pl-2">
+          <div class="fade-number">02</div>
+          <div class="relative z-10">
+            <div class="w-12 h-12 rounded-2xl bg-brand-50 flex items-center justify-center mb-5">
+              <svg class="w-6 h-6 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-gray-900">Track Outcomes</h3>
+            <p class="text-gray-500 leading-relaxed">
+              Circle back automatically. OutcomeDB reminds you to rate results: did that decision pay off or cost you?
+            </p>
+          </div>
+        </div>
+        <!-- Step 3 -->
+        <div class="relative pl-2">
+          <div class="fade-number">03</div>
+          <div class="relative z-10">
+            <div class="w-12 h-12 rounded-2xl bg-brand-50 flex items-center justify-center mb-5">
+              <svg class="w-6 h-6 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3 text-gray-900">See Patterns</h3>
+            <p class="text-gray-500 leading-relaxed">
+              AI connects the dots across hundreds of decisions. Discover which types of choices consistently win&mdash;or lose.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FEATURES DETAIL ========== -->
+  <section class="py-24 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <p class="text-brand-600 font-semibold text-sm uppercase tracking-wider mb-3">Built for Decision Makers</p>
+        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">Everything You Need to Decide Smarter</h2>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-white rounded-2xl p-7 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+          <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <h3 class="font-bold text-gray-900 mb-2">30-Second Capture</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">Log any decision in under a minute. Structured templates make it effortless.</p>
+        </div>
+        <div class="bg-white rounded-2xl p-7 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+          <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+          </div>
+          <h3 class="font-bold text-gray-900 mb-2">Smart Reminders</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">Automated follow-ups ensure you rate every outcome. No decision slips through.</p>
+        </div>
+        <div class="bg-white rounded-2xl p-7 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+          <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          </div>
+          <h3 class="font-bold text-gray-900 mb-2">AI Pattern Engine</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">Machine learning spots trends you miss. Know your blind spots before they cost you.</p>
+        </div>
+        <div class="bg-white rounded-2xl p-7 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+          <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
+          </div>
+          <h3 class="font-bold text-gray-900 mb-2">Category Tagging</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">Organize by hiring, product, strategy, and more. Filter by what matters to you.</p>
+        </div>
+        <div class="bg-white rounded-2xl p-7 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+          <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+          </div>
+          <h3 class="font-bold text-gray-900 mb-2">Team Decisions</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">Track group decisions and individual accountability. Build a shared decision memory.</p>
+        </div>
+        <div class="bg-white rounded-2xl p-7 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+          <div class="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center mb-4">
+            <svg class="w-5 h-5 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+          </div>
+          <h3 class="font-bold text-gray-900 mb-2">Export & Reports</h3>
+          <p class="text-gray-500 text-sm leading-relaxed">Generate quarterly decision reviews. Share insights with stakeholders effortlessly.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PRICING ========== -->
+  <section id="pricing" class="py-24 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-14">
+        <p class="text-brand-600 font-semibold text-sm uppercase tracking-wider mb-3">Simple Pricing</p>
+        <h2 class="text-3xl md:text-4xl font-extrabold tracking-tight">One Plan. Everything Included.</h2>
+      </div>
+
+      <div class="max-w-md mx-auto">
+        <div class="pricing-border">
+          <div class="pricing-inner p-10">
+            <div class="text-center mb-8">
+              <p class="text-sm font-semibold text-brand-600 uppercase tracking-wider mb-4">Pro Plan</p>
+              <div class="flex items-baseline justify-center gap-1">
+                <span class="text-6xl font-extrabold text-gray-900">$19</span>
+                <span class="text-gray-400 font-medium text-lg">/mo</span>
+              </div>
+              <p class="text-gray-400 text-sm mt-2">Billed monthly. Cancel anytime.</p>
+            </div>
+
+            <div class="space-y-4 mb-10">
+              <div class="flex items-center gap-3">
+                <div class="w-5 h-5 rounded-full bg-brand-50 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-3 h-3 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                </div>
+                <span class="text-gray-700 text-sm">Unlimited decision tracking</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-5 h-5 rounded-full bg-brand-50 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-3 h-3 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                </div>
+                <span class="text-gray-700 text-sm">AI-powered pattern discovery</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-5 h-5 rounded-full bg-brand-50 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-3 h-3 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                </div>
+                <span class="text-gray-700 text-sm">Automated outcome reminders</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-5 h-5 rounded-full bg-brand-50 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-3 h-3 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                </div>
+                <span class="text-gray-700 text-sm">Team collaboration tools</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-5 h-5 rounded-full bg-brand-50 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-3 h-3 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                </div>
+                <span class="text-gray-700 text-sm">Quarterly decision reports & exports</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="w-5 h-5 rounded-full bg-brand-50 flex items-center justify-center flex-shrink-0">
+                  <svg class="w-3 h-3 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                </div>
+                <span class="text-gray-700 text-sm">Priority support</span>
+              </div>
+            </div>
+
+            <a href="#cta" class="block w-full text-center px-8 py-4 bg-brand-600 hover:bg-brand-700 text-white font-semibold rounded-xl transition-all shadow-lg shadow-blue-600/20 hover:shadow-blue-600/30">
+              Get Early Access
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-3xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Quick Questions</h2>
+      </div>
+      <div class="space-y-6">
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+          <h3 class="font-bold text-slate-900 mb-2">Isn't this just a decision journal?</h3>
+          <p class="text-slate-600">Journals record. OutcomeDB analyzes. It tracks outcomes, calculates your win rate, and finds the patterns behind your best and worst decisions.</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+          <h3 class="font-bold text-slate-900 mb-2">How much time does logging take?</h3>
+          <p class="text-slate-600">30 seconds per decision. OutcomeDB reminds you to rate outcomes at 1 week, 1 month, and 3 months.</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+          <h3 class="font-bold text-slate-900 mb-2">Can I cancel anytime?</h3>
+          <p class="text-slate-600">Yes. Your data stays yours.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== BOTTOM CTA ========== -->
+  <section id="cta" class="cta-gradient py-24 relative overflow-hidden">
+    <!-- Background decoration -->
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute top-0 left-1/4 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-0 right-1/4 w-64 h-64 bg-white/5 rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="relative max-w-3xl mx-auto px-6 text-center">
+      <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-4">
+        Start Tracking Decisions
+      </h2>
+      <p class="text-blue-100/70 text-lg mb-10 max-w-xl mx-auto">
+        Every decision you don't track is a lesson you'll never learn. Start building your decision intelligence archive today.
+      </p>
+
+      <!-- Bottom Email Form -->
+      <form action="https://formspree.io/f/xlgwgeon" method="POST" class="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
         <input type="hidden" name="product" value="outcomedb" />
-        <input type="email" name="email" placeholder="Enter your email" class="px-6 py-3 rounded-lg border border-gray-300 w-80" required />
-        <button type="submit" class="ml-2 px-8 py-3 bg-black text-white rounded-lg hover:bg-gray-800">Start Tracking Decisions</button>
+        <input
+          type="email"
+          name="email"
+          placeholder="your@email.com"
+          required
+          class="flex-1 px-5 py-3.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder-blue-200/50 text-sm font-medium transition-all focus:bg-white/15"
+        />
+        <button
+          type="submit"
+          class="px-8 py-3.5 bg-white hover:bg-blue-50 text-brand-700 font-bold rounded-xl text-sm transition-all shadow-lg whitespace-nowrap cursor-pointer"
+        >
+          Start Tracking Decisions
+        </button>
       </form>
+      <p class="text-blue-200/40 text-xs mt-5">Free 14-day trial. No credit card required.</p>
     </div>
+  </section>
 
-    <!-- Problems -->
-    <div class="grid md:grid-cols-3 gap-8 mb-16">
-      <div class="bg-white rounded-lg p-6 shadow-sm">
-        <h3 class="text-lg font-bold mb-2">Decision Amnesia</h3>
-        <p class="text-gray-600">You made a great hire last year. Why? What criteria did you use? You can't remember—and you can't repeat what you can't recall.</p>
-      </div>
-      <div class="bg-white rounded-lg p-6 shadow-sm">
-        <h3 class="text-lg font-bold mb-2">Gut vs. Data</h3>
-        <p class="text-gray-600">Your team makes decisions in meetings that nobody records. Six months later, nobody knows why you chose Plan B over Plan A.</p>
-      </div>
-      <div class="bg-white rounded-lg p-6 shadow-sm">
-        <h3 class="text-lg font-bold mb-2">Same Mistakes, New Quarter</h3>
-        <p class="text-gray-600">Every Q1 you overhire. Every launch you underestimate timelines. The pattern is obvious in hindsight. Never in the moment.</p>
-      </div>
-    </div>
-
-    <!-- Features -->
-    <div class="mb-16">
-      <h2 class="text-3xl font-bold mb-8 text-center">How It Works</h2>
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-white rounded-lg p-6 shadow-sm">
-          <h3 class="text-lg font-bold mb-2">Log Decisions</h3>
-          <p class="text-gray-600">Quick capture: what you decided, why, what you expected. Takes 30 seconds, saves months of confusion.</p>
+  <!-- ========== FOOTER ========== -->
+  <footer class="bg-gray-900 py-16">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">📊</span>
+          <span class="text-white font-bold text-lg">OutcomeDB</span>
         </div>
-        <div class="bg-white rounded-lg p-6 shadow-sm">
-          <h3 class="text-lg font-bold mb-2">Track Outcomes</h3>
-          <p class="text-gray-600">Circle back automatically. OutcomeDB reminds you to rate results: did that decision pay off or cost you?</p>
-        </div>
-        <div class="bg-white rounded-lg p-6 shadow-sm">
-          <h3 class="text-lg font-bold mb-2">See Patterns</h3>
-          <p class="text-gray-600">AI connects the dots across hundreds of decisions. Discover which types of choices consistently win—or lose.</p>
+        <div class="flex items-center gap-8 text-sm text-gray-400">
+          <a href="#problems" class="hover:text-white transition-colors">Why OutcomeDB</a>
+          <a href="#how-it-works" class="hover:text-white transition-colors">How It Works</a>
+          <a href="#pricing" class="hover:text-white transition-colors">Pricing</a>
         </div>
       </div>
-    </div>
-
-    <!-- Pricing -->
-    <div class="text-center mb-16">
-      <div class="inline-block bg-white rounded-lg p-8 shadow-sm">
-        <div class="text-4xl font-bold mb-2">$19</div>
-        <div class="text-gray-600">per month</div>
+      <div class="border-t border-gray-800 mt-10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+        <p class="text-gray-500 text-sm">&copy; 2025 OutcomeDB. All rights reserved.</p>
+        <p class="text-gray-600 text-sm">Decision Intelligence Archive</p>
       </div>
     </div>
-
-    <!-- CTA -->
-    <div class="text-center">
-      <h2 class="text-3xl font-bold mb-4">Start Tracking Decisions</h2>
-      <form action="https://formspree.io/f/xlgwgeon" method="POST">
-        <input type="hidden" name="product" value="outcomedb" />
-        <input type="email" name="email" placeholder="your@email.com" class="px-6 py-3 rounded-lg border border-gray-300 w-80" required />
-        <button type="submit" class="ml-2 px-8 py-3 bg-black text-white rounded-lg hover:bg-gray-800">Start Tracking Decisions</button>
-      </form>
-    </div>
-  </div>
-
+  </footer>
 
 </body>
 </html>
