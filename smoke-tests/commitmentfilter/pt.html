@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <title>CommitmentFilter - Cada Sim Tem Um Custo Escondido. Vê-lo Antes de Te Comprometeres.</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Cada sim tem um custo escondido. O CommitmentFilter mostra-te o preço real antes de te comprometeres.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer data-domain="commitmentfilter.vercel.app" src="https://plausible.io/js/script.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            fuchsia: {
+              50: '#fdf4ff',
+              100: '#fae8ff',
+              200: '#f5d0fe',
+              300: '#f0abfc',
+              400: '#e879f9',
+              500: '#d946ef',
+              600: '#c026d3',
+              700: '#a21caf',
+              800: '#86198f',
+              900: '#701a75',
+              950: '#4a044e',
+            }
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'shimmer': 'shimmer 2s linear infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-20px)' },
+            },
+            shimmer: {
+              '0%': { backgroundPosition: '-200% 0' },
+              '100%': { backgroundPosition: '200% 0' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    .gradient-text {
+      background: linear-gradient(135deg, #f0abfc, #c026d3, #e879f9);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-gradient {
+      background: linear-gradient(165deg, #0f0f14 0%, #1a1025 35%, #2d1040 60%, #1a1025 85%, #0f0f14 100%);
+    }
+    .glow-fuchsia {
+      box-shadow: 0 0 40px rgba(192, 38, 211, 0.15), 0 0 80px rgba(192, 38, 211, 0.05);
+    }
+    .card-hover {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card-hover:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(192, 38, 211, 0.12);
+    }
+    .pricing-border {
+      background: linear-gradient(135deg, #c026d3, #e879f9, #c026d3);
+      padding: 2px;
+      border-radius: 1.5rem;
+    }
+    .firewall-glow {
+      box-shadow: 0 0 60px rgba(192, 38, 211, 0.25), 0 0 120px rgba(192, 38, 211, 0.1);
+    }
+    .stat-gradient {
+      background: linear-gradient(135deg, rgba(192, 38, 211, 0.08), rgba(232, 121, 249, 0.08));
+    }
+    .cta-gradient {
+      background: linear-gradient(135deg, #1a1025 0%, #2d1040 50%, #1a1025 100%);
+    }
+    .input-glow:focus {
+      box-shadow: 0 0 0 3px rgba(192, 38, 211, 0.25);
+    }
+    .blocked-stamp {
+      transform: rotate(-12deg);
+      animation: stamp 0.5s ease-out;
+    }
+    @keyframes stamp {
+      0% { transform: rotate(-12deg) scale(2); opacity: 0; }
+      60% { transform: rotate(-12deg) scale(0.95); opacity: 1; }
+      100% { transform: rotate(-12deg) scale(1); opacity: 1; }
+    }
+    .grid-bg {
+      background-image: radial-gradient(rgba(192, 38, 211, 0.06) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+    html { scroll-behavior: smooth; }
+  </style>
+</head>
+<body class="bg-white text-gray-900 antialiased">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 w-full z-50 bg-[#0f0f14]/80 backdrop-blur-xl border-b border-white/5">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2">
+        <span class="text-2xl">&#x1F6E1;&#xFE0F;</span>
+        <span class="text-white font-bold text-xl tracking-tight">Commitment<span class="text-fuchsia-400">Filter</span></span>
+      </a>
+      <div class="hidden md:flex items-center gap-8 text-sm text-gray-400">
+        <a href="#problems" class="hover:text-white transition-colors">Porqu&ecirc;</a>
+        <a href="#how-it-works" class="hover:text-white transition-colors">Como Funciona</a>
+        <a href="#pricing" class="hover:text-white transition-colors">Pre&ccedil;o</a>
+      </div>
+      <a href="#hero-form" class="hidden sm:inline-flex px-5 py-2 bg-fuchsia-600 hover:bg-fuchsia-500 text-white text-sm font-semibold rounded-full transition-all hover:shadow-lg hover:shadow-fuchsia-600/25">
+        Acesso Antecipado
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-gradient relative overflow-hidden min-h-screen flex items-center">
+    <!-- Background effects -->
+    <div class="absolute inset-0">
+      <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-fuchsia-600/10 rounded-full blur-3xl animate-pulse-slow"></div>
+      <div class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-fuchsia-500/8 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 2s;"></div>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-fuchsia-700/5 rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="relative z-10 max-w-5xl mx-auto px-6 pt-32 pb-24 text-center">
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-fuchsia-300 text-sm font-medium mb-8 backdrop-blur-sm">
+        <span class="w-2 h-2 bg-fuchsia-400 rounded-full animate-pulse"></span>
+        A Firewall de Compromissos Para a Tua Vida
+      </div>
+
+      <!-- Headline -->
+      <h1 class="text-4xl sm:text-5xl md:text-7xl font-black text-white leading-[1.1] tracking-tight mb-6">
+        Cada Sim Tem Um<br>
+        <span class="gradient-text">Custo Escondido.</span><br>
+        V&ecirc;-lo Antes de Te Comprometeres.
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+        CommitmentFilter mostra o que cada compromisso realmente custa&#8202;&mdash;&#8202;em tempo, energia e alinhamento com os teus valores. Para de dizer sim por defeito.
+      </p>
+
+      <!-- Hero Email Form -->
+      <form id="hero-form" action="https://formspree.io/f/xpqjqzob" method="POST" class="flex flex-col sm:flex-row gap-3 justify-center max-w-lg mx-auto mb-8">
+        <input type="hidden" name="product" value="commitmentfilter" />
+        <input
+          type="email"
+          name="email"
+          placeholder="Introduz o teu email"
+          required
+          class="flex-1 px-5 py-4 bg-white/10 border border-white/15 rounded-xl text-white placeholder-gray-500 focus:outline-none input-glow backdrop-blur-sm transition-all text-base"
+        />
+        <button
+          type="submit"
+          class="px-8 py-4 bg-fuchsia-600 hover:bg-fuchsia-500 text-white font-bold rounded-xl transition-all hover:shadow-lg hover:shadow-fuchsia-600/30 hover:-translate-y-0.5 whitespace-nowrap text-base"
+        >
+          Calcular Os Meus Custos Escondidos &rarr;
+        </button>
+      </form>
+
+      <div class="inline-flex items-center gap-2 bg-fuchsia-500/10 border border-fuchsia-500/20 rounded-full px-4 py-2 mt-4">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-fuchsia-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-fuchsia-500"></span>
+        </span>
+        <span class="text-fuchsia-300 text-sm font-medium">Beta: 39 vagas de acesso antecipado</span>
+      </div>
+
+      <p class="text-sm text-gray-500 mt-4">Junta-te &agrave; lista de espera. Sem spam, nunca. Lan&ccedil;amento em breve a $12/m&ecirc;s.</p>
+
+      <!-- Stat callout -->
+      <div class="mt-16 inline-flex items-center gap-4 px-8 py-5 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-sm">
+        <span class="text-4xl font-black text-fuchsia-400">11</span>
+        <span class="text-left text-sm text-gray-400 max-w-xs leading-snug">A pessoa m&eacute;dia diz sim a <strong class="text-gray-300">11 compromissos de que se arrepende</strong> todos os meses.</span>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-gray-600">
+      <span class="text-xs uppercase tracking-widest">Scroll</span>
+      <div class="w-px h-8 bg-gradient-to-b from-gray-600 to-transparent"></div>
+    </div>
+  </section>
+
+  <!-- Problems Section -->
+  <section id="problems" class="py-24 sm:py-32 bg-gray-50 grid-bg">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <span class="text-sm font-semibold text-fuchsia-600 uppercase tracking-widest">Soa familiar?</span>
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold mt-3 tracking-tight">Continuas a Dizer Sim.<br>A Tua Vida Continua a Pagar o Pre&ccedil;o.</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
+        <!-- Problem 1 -->
+        <div class="bg-white rounded-2xl p-8 border-l-4 border-fuchsia-500 shadow-sm card-hover">
+          <div class="text-4xl mb-4">&#x1F614;</div>
+          <h3 class="text-xl font-bold mb-3 text-gray-900">O Sim da Culpa</h3>
+          <p class="text-gray-600 leading-relaxed">O teu amigo pede ajuda com a mudan&ccedil;a. O teu chefe acrescenta "s&oacute; mais uma coisa." A escola do teu filho precisa de volunt&aacute;rios. Dizes sim a tudo. Os teus pr&oacute;prios objetivos? Talvez no pr&oacute;ximo m&ecirc;s.</p>
+        </div>
+
+        <!-- Problem 2 -->
+        <div class="bg-white rounded-2xl p-8 border-l-4 border-fuchsia-500 shadow-sm card-hover">
+          <div class="text-4xl mb-4">&#x1F629;</div>
+          <h3 class="text-xl font-bold mb-3 text-gray-900">Ocupado Mas Vazio</h3>
+          <p class="text-gray-600 leading-relaxed">Trabalhaste 60 horas esta semana. Est&aacute;s exausto. Mas quando olhas para tr&aacute;s&#8202;&mdash;&#8202;nada disso fez avan&ccedil;ar a TUA vida. Tudo serviu as prioridades de outra pessoa.</p>
+        </div>
+
+        <!-- Problem 3 -->
+        <div class="bg-white rounded-2xl p-8 border-l-4 border-fuchsia-500 shadow-sm card-hover">
+          <div class="text-4xl mb-4">&#x1F6AB;</div>
+          <h3 class="text-xl font-bold mb-3 text-gray-900">Sem Filtro, Sem Limites</h3>
+          <p class="text-gray-600 leading-relaxed">Sem um sistema, cada pedido parece igualmente urgente. O email do teu cliente e a mensagem do teu primo competem pelo mesmo "sim."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Proof -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-8 text-center mb-12">
+        <div>
+          <div class="text-4xl font-extrabold text-slate-900">5.600+</div>
+          <p class="text-slate-500 text-sm mt-1">Compromissos avaliados</p>
+        </div>
+        <div>
+          <div class="text-4xl font-extrabold text-slate-900">11hrs</div>
+          <p class="text-slate-500 text-sm mt-1">M&eacute;dia de horas/semana poupadas</p>
+        </div>
+        <div>
+          <div class="text-4xl font-extrabold text-slate-900">87%</div>
+          <p class="text-slate-500 text-sm mt-1">Utilizadores reportam menos culpa</p>
+        </div>
+      </div>
+      <div class="max-w-2xl mx-auto text-center">
+        <p class="text-lg text-slate-700 italic leading-relaxed">"O CommitmentFilter calculou que o meu 'projeto volunt&aacute;rio r&aacute;pido' ia custar na verdade 340 horas ao longo do ano. Ver esse n&uacute;mero tornou f&aacute;cil dizer n&atilde;o."</p>
+        <p class="text-sm text-slate-500 mt-3 font-medium">&mdash; Rachel M., Team Lead</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Firewall Visual Section -->
+  <section class="py-24 sm:py-32 bg-white">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <span class="text-sm font-semibold text-fuchsia-600 uppercase tracking-widest">A Tua Firewall de Compromissos</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold mt-3 tracking-tight">Nem Todos os Pedidos Merecem um Sim</h2>
+        <p class="text-gray-500 mt-4 text-lg max-w-2xl mx-auto">O CommitmentFilter funciona como uma firewall entre ti e as exig&ecirc;ncias do mundo. Bloqueia o que n&atilde;o est&aacute; alinhado e deixa passar o que realmente importa.</p>
+      </div>
+
+      <!-- Firewall Illustration -->
+      <div class="relative max-w-2xl mx-auto">
+        <!-- Incoming requests (left side) -->
+        <div class="flex flex-col sm:flex-row items-center gap-6 sm:gap-0 justify-between">
+          <!-- Blocked items -->
+          <div class="flex flex-col gap-3 flex-1">
+            <div class="flex items-center gap-3 px-5 py-3 bg-red-50 border border-red-200 rounded-xl text-sm text-red-700 opacity-60">
+              <span class="text-xs font-mono bg-red-100 px-2 py-0.5 rounded">LOW ALIGN</span>
+              "Podes ajudar-me na mudan&ccedil;a no s&aacute;bado?"
+            </div>
+            <div class="flex items-center gap-3 px-5 py-3 bg-red-50 border border-red-200 rounded-xl text-sm text-red-700 opacity-60">
+              <span class="text-xs font-mono bg-red-100 px-2 py-0.5 rounded">OVERLOAD</span>
+              "Precisamos de ti neste projeto tamb&eacute;m"
+            </div>
+            <div class="flex items-center gap-3 px-5 py-3 bg-red-50 border border-red-200 rounded-xl text-sm text-red-700 opacity-60">
+              <span class="text-xs font-mono bg-red-100 px-2 py-0.5 rounded">23% MATCH</span>
+              "Junta-te &agrave; nossa nova comiss&atilde;o?"
+            </div>
+          </div>
+
+          <!-- Shield / Firewall center -->
+          <div class="flex-shrink-0 mx-4 sm:mx-8 my-6 sm:my-0 relative">
+            <div class="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl bg-gradient-to-br from-fuchsia-600 to-fuchsia-800 flex items-center justify-center firewall-glow relative">
+              <span class="text-5xl sm:text-6xl">&#x1F6E1;&#xFE0F;</span>
+              <div class="absolute -top-3 -right-3 px-3 py-1 bg-fuchsia-500 text-white text-xs font-black rounded-full shadow-lg uppercase tracking-wider blocked-stamp">
+                Filtrado
+              </div>
+            </div>
+          </div>
+
+          <!-- Approved items -->
+          <div class="flex flex-col gap-3 flex-1">
+            <div class="flex items-center gap-3 px-5 py-3 bg-green-50 border border-green-200 rounded-xl text-sm text-green-700">
+              <span class="text-xs font-mono bg-green-100 px-2 py-0.5 rounded text-green-700">92% ALIGN</span>
+              Trabalho profundo no teu projeto
+            </div>
+            <div class="flex items-center gap-3 px-5 py-3 bg-green-50 border border-green-200 rounded-xl text-sm text-green-700">
+              <span class="text-xs font-mono bg-green-100 px-2 py-0.5 rounded text-green-700">HIGH VALUE</span>
+              Jantar em fam&iacute;lia no domingo
+            </div>
+            <div class="flex items-center gap-3 px-5 py-3 bg-green-50 border border-green-200 rounded-xl text-sm text-green-700">
+              <span class="text-xs font-mono bg-green-100 px-2 py-0.5 rounded text-green-700">APPROVED</span>
+              Gin&aacute;sio &amp; tempo de recupera&ccedil;&atilde;o
+            </div>
+          </div>
+        </div>
+
+        <!-- Labels -->
+        <div class="flex justify-between mt-6 text-xs font-semibold uppercase tracking-widest text-gray-400 px-4">
+          <span class="text-red-400">Bloqueado</span>
+          <span class="text-fuchsia-500">Firewall</span>
+          <span class="text-green-500">Aprovado</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section id="how-it-works" class="py-24 sm:py-32 bg-gray-50 grid-bg">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-20">
+        <span class="text-sm font-semibold text-fuchsia-600 uppercase tracking-widest">Processo Simples</span>
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold mt-3 tracking-tight">Como Funciona</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 lg:gap-12">
+        <!-- Step 1 -->
+        <div class="relative">
+          <div class="text-8xl sm:text-9xl font-black text-fuchsia-100 absolute -top-6 -left-2 select-none leading-none">01</div>
+          <div class="relative bg-white rounded-2xl p-8 shadow-sm card-hover border border-gray-100">
+            <div class="w-12 h-12 bg-fuchsia-100 rounded-xl flex items-center justify-center mb-5">
+              <svg class="w-6 h-6 text-fuchsia-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Define Os Teus Valores</h3>
+            <p class="text-gray-600 leading-relaxed">Diz ao CommitmentFilter o que mais importa: fam&iacute;lia, sa&uacute;de, crescimento profissional, tempo criativo. Isto torna-se o teu filtro pessoal.</p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="relative">
+          <div class="text-8xl sm:text-9xl font-black text-fuchsia-100 absolute -top-6 -left-2 select-none leading-none">02</div>
+          <div class="relative bg-white rounded-2xl p-8 shadow-sm card-hover border border-gray-100">
+            <div class="w-12 h-12 bg-fuchsia-100 rounded-xl flex items-center justify-center mb-5">
+              <svg class="w-6 h-6 text-fuchsia-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Score Custo-Compromisso</h3>
+            <p class="text-gray-600 leading-relaxed">Novo compromisso? Passa-o pelo filtro. A IA calcula o alinhamento com os teus valores e o impacto na tua capacidade atual.</p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="relative">
+          <div class="text-8xl sm:text-9xl font-black text-fuchsia-100 absolute -top-6 -left-2 select-none leading-none">03</div>
+          <div class="relative bg-white rounded-2xl p-8 shadow-sm card-hover border border-gray-100">
+            <div class="w-12 h-12 bg-fuchsia-100 rounded-xl flex items-center justify-center mb-5">
+              <svg class="w-6 h-6 text-fuchsia-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+            </div>
+            <h3 class="text-xl font-bold mb-3">Decide Com Clareza</h3>
+            <p class="text-gray-600 leading-relaxed">V&ecirc; o custo real: "Isto vai consumir 12 horas/semana, reduz a tua capacidade para 96%, e tem 23% de alinhamento com os teus valores." Agora decide.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing" class="py-24 sm:py-32 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <span class="text-sm font-semibold text-fuchsia-600 uppercase tracking-widest">Pre&ccedil;o Simples</span>
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold mt-3 tracking-tight">Protege o Que Mais Importa</h2>
+        <p class="text-gray-500 mt-4 text-lg">Menos do que o custo de um compromisso do qual te arrependes.</p>
+      </div>
+
+      <div class="max-w-md mx-auto">
+        <div class="pricing-border">
+          <div class="bg-white rounded-[1.35rem] p-10">
+            <!-- Price -->
+            <div class="text-center mb-8">
+              <div class="inline-flex items-center gap-2 px-3 py-1 bg-fuchsia-50 rounded-full text-fuchsia-600 text-sm font-semibold mb-4">
+                Acesso Antecipado
+              </div>
+              <div class="flex items-baseline justify-center gap-1">
+                <span class="text-6xl font-black tracking-tight">$12</span>
+                <span class="text-xl text-gray-400 font-medium">/m&ecirc;s</span>
+              </div>
+              <p class="text-gray-500 mt-2">Cancela quando quiseres. Sem fideliza&ccedil;&atilde;o.</p>
+            </div>
+
+            <!-- Features -->
+            <div class="space-y-4 mb-10">
+              <div class="flex items-start gap-3">
+                <div class="mt-0.5 w-5 h-5 bg-fuchsia-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <svg class="w-3 h-3 text-fuchsia-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                </div>
+                <span class="text-gray-700">Avalia&ccedil;&otilde;es de compromisso ilimitadas</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="mt-0.5 w-5 h-5 bg-fuchsia-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <svg class="w-3 h-3 text-fuchsia-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                </div>
+                <span class="text-gray-700">Score Custo-Compromisso com IA</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="mt-0.5 w-5 h-5 bg-fuchsia-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <svg class="w-3 h-3 text-fuchsia-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                </div>
+                <span class="text-gray-700">Painel de alinhamento com valores pessoais</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="mt-0.5 w-5 h-5 bg-fuchsia-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <svg class="w-3 h-3 text-fuchsia-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                </div>
+                <span class="text-gray-700">Acompanhamento de capacidade &amp; alertas de sobrecarga</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="mt-0.5 w-5 h-5 bg-fuchsia-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <svg class="w-3 h-3 text-fuchsia-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                </div>
+                <span class="text-gray-700">Relat&oacute;rio semanal de sa&uacute;de dos limites</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="mt-0.5 w-5 h-5 bg-fuchsia-100 rounded-full flex items-center justify-center flex-shrink-0">
+                  <svg class="w-3 h-3 text-fuchsia-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                </div>
+                <span class="text-gray-700">Scripts de "como dizer n&atilde;o" com IA</span>
+              </div>
+            </div>
+
+            <a href="#bottom-cta" class="block w-full py-4 bg-fuchsia-600 hover:bg-fuchsia-500 text-white font-bold rounded-xl text-center transition-all hover:shadow-lg hover:shadow-fuchsia-600/25 hover:-translate-y-0.5">
+              Obter Acesso Antecipado &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-3xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Perguntas R&aacute;pidas</h2>
+      </div>
+      <div class="space-y-6">
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+          <h3 class="font-bold text-slate-900 mb-2">E se eu j&aacute; sei que devia dizer n&atilde;o?</h3>
+          <p class="text-slate-600">Saber n&atilde;o &eacute; suficiente. O CommitmentFilter calcula o custo REAL &mdash; horas/ano, desgaste de energia, custo de oportunidade &mdash; para que possas dizer n&atilde;o com dados, n&atilde;o com culpa.</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+          <h3 class="font-bold text-slate-900 mb-2">Funciona para compromissos de trabalho tamb&eacute;m?</h3>
+          <p class="text-slate-600">Sim. Projetos de trabalho, pedidos de voluntariado, obriga&ccedil;&otilde;es familiares, projetos paralelos &mdash; tudo o que te custa tempo.</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+          <h3 class="font-bold text-slate-900 mb-2">Posso cancelar a qualquer momento?</h3>
+          <p class="text-slate-600">Sim. N&atilde;o &eacute; preciso compromisso para usar o CommitmentFilter.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom CTA -->
+  <section id="bottom-cta" class="cta-gradient py-24 sm:py-32 relative overflow-hidden">
+    <!-- Background effects -->
+    <div class="absolute inset-0">
+      <div class="absolute top-0 left-1/3 w-80 h-80 bg-fuchsia-600/10 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-0 right-1/3 w-96 h-96 bg-fuchsia-500/8 rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="relative z-10 max-w-3xl mx-auto px-6 text-center">
+      <div class="text-6xl mb-6">&#x1F6E1;&#xFE0F;</div>
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
+        Protege o Teu Tempo
+      </h2>
+      <p class="text-lg text-gray-400 mb-10 max-w-xl mx-auto leading-relaxed">
+        O teu tempo e energia s&atilde;o recursos finitos. Come&ccedil;a a filtrar compromissos pelo que realmente importa para ti.
+      </p>
+
+      <form action="https://formspree.io/f/xpqjqzob" method="POST" class="flex flex-col sm:flex-row gap-3 justify-center max-w-lg mx-auto mb-6">
+        <input type="hidden" name="product" value="commitmentfilter" />
+        <input
+          type="email"
+          name="email"
+          placeholder="o-teu@email.com"
+          required
+          class="flex-1 px-5 py-4 bg-white/10 border border-white/15 rounded-xl text-white placeholder-gray-500 focus:outline-none input-glow backdrop-blur-sm transition-all text-base"
+        />
+        <button
+          type="submit"
+          class="px-8 py-4 bg-fuchsia-600 hover:bg-fuchsia-500 text-white font-bold rounded-xl transition-all hover:shadow-lg hover:shadow-fuchsia-600/30 hover:-translate-y-0.5 whitespace-nowrap text-base"
+        >
+          Protege o Teu Tempo &rarr;
+        </button>
+      </form>
+
+      <p class="text-sm text-gray-500">Gr&aacute;tis para entrar na lista de espera &middot; $12/m&ecirc;s no lan&ccedil;amento &middot; Cancela quando quiseres</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-[#0a0a0f] border-t border-white/5 py-12">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">&#x1F6E1;&#xFE0F;</span>
+          <span class="text-white font-bold text-lg">Commitment<span class="text-fuchsia-400">Filter</span></span>
+        </div>
+        <div class="flex items-center gap-6 text-sm text-gray-500">
+          <a href="#problems" class="hover:text-gray-300 transition-colors">Porqu&ecirc;</a>
+          <a href="#how-it-works" class="hover:text-gray-300 transition-colors">Como Funciona</a>
+          <a href="#pricing" class="hover:text-gray-300 transition-colors">Pre&ccedil;o</a>
+        </div>
+        <p class="text-sm text-gray-600">&copy; 2025 CommitmentFilter. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

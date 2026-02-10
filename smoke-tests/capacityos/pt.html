@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <title>CapacityOS - Estás a 94% da Capacidade. Esse Novo Projecto Vai Quebrar-Te.</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Vê a tua capacidade real antes do burnout chegar. O CapacityOS prevê quando vais quebrar e dá-te as palavras para dizer não.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer data-domain="capacityos.vercel.app" src="https://plausible.io/js/script.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f5f3ff',
+              100: '#ede9fe',
+              200: '#ddd6fe',
+              300: '#c4b5fd',
+              400: '#a78bfa',
+              500: '#8b5cf6',
+              600: '#7c3aed',
+              700: '#6d28d9',
+              800: '#5b21b6',
+              900: '#4c1d95',
+              950: '#2e1065',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+
+    /* Capacity meter animation */
+    @keyframes meterFill {
+      from { stroke-dashoffset: 283; }
+      to { stroke-dashoffset: 17; }
+    }
+    @keyframes meterPulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+    .meter-circle {
+      animation: meterFill 2s ease-out forwards;
+    }
+    .meter-pulse {
+      animation: meterPulse 2s ease-in-out infinite;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up {
+      opacity: 0;
+      animation: fadeUp 0.8s ease-out forwards;
+    }
+    .fade-up-delay-1 { animation-delay: 0.15s; }
+    .fade-up-delay-2 { animation-delay: 0.3s; }
+    .fade-up-delay-3 { animation-delay: 0.45s; }
+
+    /* Gradient border for pricing */
+    .gradient-border {
+      background: linear-gradient(135deg, #7c3aed, #a78bfa, #7c3aed);
+      padding: 2px;
+      border-radius: 1.5rem;
+    }
+    .gradient-border-inner {
+      background: white;
+      border-radius: calc(1.5rem - 2px);
+    }
+
+    /* Smooth scroll */
+    html { scroll-behavior: smooth; }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #1e1b4b; }
+    ::-webkit-scrollbar-thumb { background: #7c3aed; border-radius: 4px; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased">
+
+  <!-- Navigation -->
+  <nav class="fixed top-0 w-full z-50 bg-slate-950/80 backdrop-blur-xl border-b border-white/5">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2">
+        <span class="text-2xl">&#129504;</span>
+        <span class="text-xl font-bold text-white tracking-tight">Capacity<span class="text-brand-400">OS</span></span>
+      </a>
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#problems" class="text-sm text-slate-400 hover:text-white transition-colors duration-200">Problemas</a>
+        <a href="#how-it-works" class="text-sm text-slate-400 hover:text-white transition-colors duration-200">Como Funciona</a>
+        <a href="#pricing" class="text-sm text-slate-400 hover:text-white transition-colors duration-200">Preços</a>
+        <a href="#cta" class="text-sm font-semibold text-white bg-brand-600 hover:bg-brand-500 px-5 py-2 rounded-full transition-all duration-200 hover:shadow-lg hover:shadow-brand-600/25">Verificar A Minha Capacidade</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-brand-950">
+    <!-- Background decorations -->
+    <div class="absolute inset-0 overflow-hidden">
+      <div class="absolute top-1/4 -left-32 w-96 h-96 bg-brand-600/10 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-1/4 -right-32 w-96 h-96 bg-brand-500/8 rounded-full blur-3xl"></div>
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-600/5 rounded-full blur-3xl"></div>
+    </div>
+    <!-- Grid pattern overlay -->
+    <div class="absolute inset-0" style="background-image: radial-gradient(rgba(124,58,237,0.08) 1px, transparent 1px); background-size: 40px 40px;"></div>
+
+    <div class="relative z-10 max-w-6xl mx-auto px-6 pt-32 pb-20 w-full">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <!-- Left: Copy -->
+        <div class="fade-up">
+          <div class="inline-flex items-center gap-2 bg-brand-500/10 border border-brand-500/20 rounded-full px-4 py-1.5 mb-8">
+            <span class="w-2 h-2 bg-red-400 rounded-full meter-pulse"></span>
+            <span class="text-sm font-medium text-brand-300">Capacidade crítica</span>
+          </div>
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-[1.1] tracking-tight mb-6">
+            Estás a 94% da Capacidade. <span class="bg-gradient-to-r from-brand-400 to-brand-300 bg-clip-text text-transparent">Esse Novo Projecto Vai Quebrar-Te.</span>
+          </h1>
+          <p class="text-lg sm:text-xl text-slate-400 leading-relaxed mb-10 max-w-xl">
+            CapacityOS mede a tua carga real de trabalho para que possas dizer não com dados&mdash;não apenas com um pressentimento. Pára de adivinhar. Começa a saber.
+          </p>
+
+          <!-- Hero Email Form -->
+          <form action="https://formspree.io/f/mgoloenr" method="POST" class="flex flex-col sm:flex-row gap-3 max-w-lg">
+            <input type="hidden" name="product" value="capacityos" />
+            <input
+              type="email"
+              name="email"
+              placeholder="Insere o teu email"
+              required
+              class="flex-1 px-5 py-3.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all duration-200"
+            />
+            <button
+              type="submit"
+              class="px-8 py-3.5 bg-brand-600 hover:bg-brand-500 text-white font-semibold rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-brand-600/30 hover:-translate-y-0.5 whitespace-nowrap"
+            >
+              Verificar A Minha Capacidade &rarr;
+            </button>
+          </form>
+
+          <div class="inline-flex items-center gap-2 bg-violet-500/10 border border-violet-500/20 rounded-full px-4 py-2 mt-4">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-violet-500"></span>
+            </span>
+            <span class="text-violet-300 text-sm font-medium">Beta: 52 vagas de acesso antecipado</span>
+          </div>
+
+          <p class="text-sm text-slate-500 mt-4">Grátis para experimentar. Sem cartão de crédito.</p>
+        </div>
+
+        <!-- Right: Capacity Meter Graphic -->
+        <div class="flex justify-center fade-up fade-up-delay-1">
+          <div class="relative">
+            <!-- Outer glow -->
+            <div class="absolute inset-0 bg-brand-600/20 rounded-full blur-3xl scale-110"></div>
+            <!-- Meter card -->
+            <div class="relative bg-slate-900/80 backdrop-blur-sm border border-white/10 rounded-3xl p-10 shadow-2xl shadow-brand-950/50">
+              <div class="relative w-56 h-56 mx-auto mb-6">
+                <svg class="w-full h-full -rotate-90" viewBox="0 0 100 100">
+                  <!-- Background circle -->
+                  <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(124,58,237,0.1)" stroke-width="8" />
+                  <!-- Track circle -->
+                  <circle cx="50" cy="50" r="45" fill="none" stroke="rgba(124,58,237,0.2)" stroke-width="8" stroke-dasharray="283" stroke-dashoffset="0" stroke-linecap="round" />
+                  <!-- Progress circle -->
+                  <circle cx="50" cy="50" r="45" fill="none" stroke="url(#meterGradient)" stroke-width="8" stroke-dasharray="283" stroke-dashoffset="17" stroke-linecap="round" class="meter-circle" />
+                  <defs>
+                    <linearGradient id="meterGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                      <stop offset="0%" stop-color="#7c3aed" />
+                      <stop offset="70%" stop-color="#f97316" />
+                      <stop offset="100%" stop-color="#ef4444" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+                <!-- Center text -->
+                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                  <span class="text-5xl font-extrabold text-white">94<span class="text-3xl text-brand-400">%</span></span>
+                  <span class="text-sm text-slate-400 font-medium mt-1">Capacidade Usada</span>
+                </div>
+              </div>
+              <!-- Status bars -->
+              <div class="space-y-3">
+                <div class="flex items-center justify-between text-sm">
+                  <span class="text-slate-400">Carga Cognitiva</span>
+                  <span class="text-red-400 font-semibold">Crítica</span>
+                </div>
+                <div class="w-full bg-slate-800 rounded-full h-2">
+                  <div class="bg-gradient-to-r from-brand-500 to-red-500 h-2 rounded-full" style="width: 94%"></div>
+                </div>
+                <div class="flex items-center justify-between text-sm mt-4">
+                  <span class="text-slate-400">Projectos Activos</span>
+                  <span class="text-orange-400 font-semibold">14</span>
+                </div>
+                <div class="w-full bg-slate-800 rounded-full h-2">
+                  <div class="bg-gradient-to-r from-brand-500 to-orange-500 h-2 rounded-full" style="width: 78%"></div>
+                </div>
+                <div class="flex items-center justify-between text-sm mt-4">
+                  <span class="text-slate-400">Decisões Pendentes</span>
+                  <span class="text-yellow-400 font-semibold">23</span>
+                </div>
+                <div class="w-full bg-slate-800 rounded-full h-2">
+                  <div class="bg-gradient-to-r from-brand-500 to-yellow-500 h-2 rounded-full" style="width: 65%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-500">
+      <span class="text-xs font-medium tracking-widest uppercase">Scroll</span>
+      <div class="w-5 h-8 rounded-full border-2 border-slate-600 flex justify-center pt-1.5">
+        <div class="w-1 h-2 bg-slate-500 rounded-full animate-bounce"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social proof stat -->
+  <section class="relative bg-slate-950 border-y border-white/5">
+    <div class="max-w-4xl mx-auto px-6 py-14 text-center">
+      <p class="text-lg sm:text-xl text-slate-400 font-light">
+        <span class="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-brand-400 to-brand-300 bg-clip-text text-transparent">67%</span>
+        <span class="block mt-3 max-w-2xl mx-auto">dos profissionais em burnout não viram os sinais até ser tarde demais.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- Problems Section -->
+  <section id="problems" class="py-24 sm:py-32 bg-slate-50">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <span class="inline-block text-sm font-semibold text-brand-600 tracking-widest uppercase mb-4">Parece Familiar?</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Os problemas de que ninguém fala</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Problem 1 -->
+        <div class="group bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl border border-slate-100 border-l-4 border-l-brand-500 transition-all duration-300 hover:-translate-y-1 fade-up">
+          <div class="text-4xl mb-5">&#128517;</div>
+          <h3 class="text-xl font-bold text-slate-900 mb-3">"Claro, Posso Ficar Com Isso"</h3>
+          <p class="text-slate-500 leading-relaxed">Disseste sim porque não conseguias provar que estavas cheio. Duas semanas depois, tudo está atrasado e nada está bem.</p>
+        </div>
+
+        <!-- Problem 2 -->
+        <div class="group bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl border border-slate-100 border-l-4 border-l-brand-500 transition-all duration-300 hover:-translate-y-1 fade-up fade-up-delay-1">
+          <div class="text-4xl mb-5">&#128202;</div>
+          <h3 class="text-xl font-bold text-slate-900 mb-3">Sobrecarga Invisível</h3>
+          <p class="text-slate-500 leading-relaxed">O teu chefe vê que a tua agenda tem espaços livres. Não vê a carga mental de 14 projectos abertos, 23 decisões pendentes e zero margem.</p>
+        </div>
+
+        <!-- Problem 3 -->
+        <div class="group bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl border border-slate-100 border-l-4 border-l-brand-500 transition-all duration-300 hover:-translate-y-1 fade-up fade-up-delay-2">
+          <div class="text-4xl mb-5">&#128293;</div>
+          <h3 class="text-xl font-bold text-slate-900 mb-3">O Burnout Chega Sem Aviso</h3>
+          <p class="text-slate-500 leading-relaxed">Um dia estás bem. No dia seguinte não consegues sair da cama. Havia sinais&mdash;só não tinhas um sistema para os ver.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Proof -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-8 text-center mb-12">
+        <div>
+          <div class="text-4xl font-extrabold text-slate-900">4.200+</div>
+          <p class="text-slate-500 text-sm mt-1">Avaliações realizadas</p>
+        </div>
+        <div>
+          <div class="text-4xl font-extrabold text-slate-900">94%</div>
+          <p class="text-slate-500 text-sm mt-1">Previsões de burnout correctas</p>
+        </div>
+        <div>
+          <div class="text-4xl font-extrabold text-slate-900">23 dias</div>
+          <p class="text-slate-500 text-sm mt-1">Aviso antecipado médio</p>
+        </div>
+      </div>
+      <div class="max-w-2xl mx-auto text-center">
+        <p class="text-lg text-slate-700 italic leading-relaxed">"Usei os dados do CapacityOS para recusar um novo projecto. O meu gestor não conseguiu argumentar contra um score de capacidade de 94%. Foi a primeira vez que disse não com confiança."</p>
+        <p class="text-sm text-slate-500 mt-3 font-medium">— Sara K., Gestora de Produto</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section id="how-it-works" class="py-24 sm:py-32 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-20">
+        <span class="inline-block text-sm font-semibold text-brand-600 tracking-widest uppercase mb-4">Como Funciona</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Três passos para proteger a tua capacidade</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-12 relative">
+        <!-- Connecting line (desktop) -->
+        <div class="hidden md:block absolute top-24 left-[20%] right-[20%] h-0.5 bg-gradient-to-r from-brand-200 via-brand-400 to-brand-200"></div>
+
+        <!-- Step 1 -->
+        <div class="relative text-center group">
+          <div class="relative mx-auto mb-8">
+            <span class="text-[120px] font-black text-brand-50 leading-none select-none group-hover:text-brand-100 transition-colors duration-300">01</span>
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="w-16 h-16 bg-brand-600 rounded-2xl flex items-center justify-center shadow-lg shadow-brand-600/20 group-hover:scale-110 transition-transform duration-300">
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+              </div>
+            </div>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-3">Medidor de Carga</h3>
+          <p class="text-slate-500 leading-relaxed max-w-xs mx-auto">Vê a tua carga cognitiva como um número real. Não um pressentimento&mdash;dados. Actualizado à medida que adicionas ou completas trabalho.</p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="relative text-center group">
+          <div class="relative mx-auto mb-8">
+            <span class="text-[120px] font-black text-brand-50 leading-none select-none group-hover:text-brand-100 transition-colors duration-300">02</span>
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="w-16 h-16 bg-brand-600 rounded-2xl flex items-center justify-center shadow-lg shadow-brand-600/20 group-hover:scale-110 transition-transform duration-300">
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+              </div>
+            </div>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-3">Previsão de Burnout</h3>
+          <p class="text-slate-500 leading-relaxed max-w-xs mx-auto">A IA prevê quando vais bater na parede com base na tua trajectória actual. Dias de antecedência, não semanas.</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="relative text-center group">
+          <div class="relative mx-auto mb-8">
+            <span class="text-[120px] font-black text-brand-50 leading-none select-none group-hover:text-brand-100 transition-colors duration-300">03</span>
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="w-16 h-16 bg-brand-600 rounded-2xl flex items-center justify-center shadow-lg shadow-brand-600/20 group-hover:scale-110 transition-transform duration-300">
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              </div>
+            </div>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-3">O Cartão do Não</h3>
+          <p class="text-slate-500 leading-relaxed max-w-xs mx-auto">"Estou a 94% da capacidade&mdash;aqui estão os dados." Dá ao teu chefe, cliente ou parceiro uma razão contra a qual não podem argumentar.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section id="pricing" class="py-24 sm:py-32 bg-slate-50">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <span class="inline-block text-sm font-semibold text-brand-600 tracking-widest uppercase mb-4">Preço Simples</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">Protege a tua capacidade por menos<br>do que um almoço fora</h2>
+      </div>
+
+      <div class="max-w-md mx-auto">
+        <div class="gradient-border shadow-xl shadow-brand-600/10 hover:shadow-2xl hover:shadow-brand-600/15 transition-all duration-300">
+          <div class="gradient-border-inner p-10">
+            <!-- Badge -->
+            <div class="text-center mb-8">
+              <span class="inline-block bg-brand-50 text-brand-700 text-sm font-semibold px-4 py-1 rounded-full">Mais Popular</span>
+            </div>
+
+            <!-- Price -->
+            <div class="text-center mb-8">
+              <div class="flex items-baseline justify-center gap-1">
+                <span class="text-2xl font-bold text-slate-400">$</span>
+                <span class="text-6xl font-extrabold text-slate-900">14</span>
+                <span class="text-xl text-slate-400 font-medium">/mês</span>
+              </div>
+              <p class="text-slate-500 mt-2">Tudo o que precisas para ficares protegido</p>
+            </div>
+
+            <!-- Divider -->
+            <div class="w-full h-px bg-slate-100 mb-8"></div>
+
+            <!-- Features -->
+            <ul class="space-y-4 mb-10">
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-brand-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span class="text-slate-600">Medidor de carga cognitiva em tempo real</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-brand-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span class="text-slate-600">Previsão e projecção de burnout com IA</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-brand-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span class="text-slate-600">"Cartão do Não" partilhável com dados</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-brand-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span class="text-slate-600">Relatórios semanais de tendência de capacidade</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-brand-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span class="text-slate-600">Alertas de sobrecarga e limites</span>
+              </li>
+            </ul>
+
+            <!-- CTA -->
+            <a href="#cta" class="block w-full text-center px-8 py-4 bg-brand-600 hover:bg-brand-500 text-white font-semibold rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-brand-600/30 hover:-translate-y-0.5">
+              Começar Agora
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-3xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Perguntas Rápidas</h2>
+      </div>
+      <div class="space-y-6">
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+          <h3 class="font-bold text-slate-900 mb-2">Isto é uma ferramenta de gestão de projectos?</h3>
+          <p class="text-slate-600">Não. O CapacityOS mede a tua carga cognitiva, não as tuas tarefas. Diz-te quando estás prestes a quebrar — antes de quebrares.</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+          <h3 class="font-bold text-slate-900 mb-2">O que é o 'Cartão do Não'?</h3>
+          <p class="text-slate-600">Uma mensagem escrita profissionalmente que podes copiar e enviar quando precisas de recusar trabalho. Baseada em dados, não em emoções.</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+          <h3 class="font-bold text-slate-900 mb-2">Posso cancelar a qualquer momento?</h3>
+          <p class="text-slate-600">Absolutamente. Um clique e está feito.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom CTA Section -->
+  <section id="cta" class="relative py-24 sm:py-32 bg-gradient-to-br from-brand-700 via-brand-600 to-brand-800 overflow-hidden">
+    <!-- Decorative elements -->
+    <div class="absolute inset-0">
+      <div class="absolute top-0 left-1/4 w-72 h-72 bg-white/5 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-brand-900/30 rounded-full blur-3xl"></div>
+    </div>
+    <div class="absolute inset-0" style="background-image: radial-gradient(rgba(255,255,255,0.06) 1px, transparent 1px); background-size: 32px 32px;"></div>
+
+    <div class="relative z-10 max-w-3xl mx-auto px-6 text-center">
+      <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight mb-6">
+        Verificar A Minha Capacidade
+      </h2>
+      <p class="text-lg sm:text-xl text-brand-100/80 mb-10 max-w-xl mx-auto">
+        Pára de dizer sim quando o teu cérebro está a gritar não. Obtém o teu score de capacidade e retoma o controlo.
+      </p>
+
+      <!-- Bottom Email Form -->
+      <form action="https://formspree.io/f/mgoloenr" method="POST" class="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
+        <input type="hidden" name="product" value="capacityos" />
+        <input
+          type="email"
+          name="email"
+          placeholder="o-teu@email.com"
+          required
+          class="flex-1 px-5 py-4 bg-white/10 border border-white/20 rounded-xl text-white placeholder-brand-200/50 focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-transparent transition-all duration-200 backdrop-blur-sm"
+        />
+        <button
+          type="submit"
+          class="px-8 py-4 bg-white text-brand-700 font-bold rounded-xl transition-all duration-200 hover:bg-brand-50 hover:shadow-lg hover:shadow-black/10 hover:-translate-y-0.5 whitespace-nowrap"
+        >
+          Verificar A Minha Capacidade
+        </button>
+      </form>
+      <p class="text-sm text-brand-200/60 mt-5">Grátis para experimentar. Sem cartão de crédito.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-slate-950 border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-6 py-12">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">&#129504;</span>
+          <span class="text-lg font-bold text-white tracking-tight">Capacity<span class="text-brand-400">OS</span></span>
+        </div>
+        <div class="flex items-center gap-8">
+          <a href="#problems" class="text-sm text-slate-500 hover:text-slate-300 transition-colors duration-200">Problemas</a>
+          <a href="#how-it-works" class="text-sm text-slate-500 hover:text-slate-300 transition-colors duration-200">Como Funciona</a>
+          <a href="#pricing" class="text-sm text-slate-500 hover:text-slate-300 transition-colors duration-200">Preços</a>
+        </div>
+        <p class="text-sm text-slate-600">&copy; 2025 CapacityOS. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Intersection Observer for scroll animations -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.animationPlayState = 'running';
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.fade-up').forEach(el => {
+        if (!el.closest('section:first-of-type')) {
+          el.style.animationPlayState = 'paused';
+          observer.observe(el);
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

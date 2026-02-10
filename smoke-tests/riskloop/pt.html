@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="pt" class="scroll-smooth">
+<head>
+  <title>RiskLoop - Pára de Repetir Decisões Que Te Custam Caro</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Pára de repetir as decisões que te continuam a custar caro. O RiskLoop detecta os teus padrões comportamentais antes que te custem outra vez.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer data-domain="riskloop.vercel.app" src="https://plausible.io/js/script.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            rose: {
+              600: '#e11d48',
+              700: '#be123c',
+              800: '#9f1239',
+              900: '#881337',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+    html { scroll-behavior: smooth; }
+
+    .gradient-hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 40%, #1a1a2e 60%, #2d0a1e 100%);
+    }
+
+    .gradient-cta {
+      background: linear-gradient(135deg, #1e293b 0%, #2d0a1e 50%, #0f172a 100%);
+    }
+
+    .gradient-border {
+      background: linear-gradient(135deg, #e11d48, #f43f5e, #e11d48);
+      padding: 2px;
+      border-radius: 1rem;
+    }
+
+    .gradient-border-inner {
+      background: white;
+      border-radius: calc(1rem - 2px);
+    }
+
+    .fade-number {
+      color: rgba(225, 29, 72, 0.07);
+      font-size: 8rem;
+      font-weight: 900;
+      line-height: 1;
+      position: absolute;
+      top: -1.5rem;
+      left: 0.5rem;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .card-hover {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    }
+
+    .btn-pulse {
+      transition: all 0.2s ease;
+    }
+    .btn-pulse:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(225, 29, 72, 0.35);
+    }
+
+    .glow-ring {
+      box-shadow: 0 0 0 0 rgba(225, 29, 72, 0);
+      animation: glow 2.5s ease-in-out infinite;
+    }
+
+    @keyframes glow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(225, 29, 72, 0); }
+      50% { box-shadow: 0 0 0 8px rgba(225, 29, 72, 0.08); }
+    }
+
+    .stat-bar {
+      background: linear-gradient(90deg, rgba(225, 29, 72, 0.15), rgba(225, 29, 72, 0.05));
+      border-left: 3px solid #e11d48;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #e11d48;
+      box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.15);
+    }
+  </style>
+</head>
+<body class="bg-slate-50 font-sans text-slate-800 antialiased">
+
+  <!-- ===== NAVIGATION ===== -->
+  <nav class="gradient-hero sticky top-0 z-50 border-b border-white/5">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2 group">
+        <span class="text-2xl" aria-hidden="true">🔁</span>
+        <span class="text-xl font-extrabold text-white tracking-tight">Risk<span class="text-rose-500">Loop</span></span>
+      </a>
+      <a href="#pricing" class="hidden sm:inline-flex items-center gap-2 px-5 py-2 bg-rose-600 text-white text-sm font-semibold rounded-lg hover:bg-rose-700 transition-colors">
+        Acesso Antecipado
+      </a>
+    </div>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section class="gradient-hero relative overflow-hidden">
+    <!-- Decorative background elements -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <div class="absolute -top-40 -right-40 w-96 h-96 bg-rose-600/10 rounded-full blur-3xl"></div>
+      <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-rose-600/5 rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="relative max-w-4xl mx-auto px-6 pt-20 pb-24 md:pt-28 md:pb-32 text-center">
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-sm text-rose-300 font-medium mb-8 backdrop-blur-sm">
+        <span class="w-2 h-2 bg-rose-500 rounded-full animate-pulse"></span>
+        Intelig&ecirc;ncia de Risco Comportamental
+      </div>
+
+      <!-- Headline -->
+      <h1 class="text-4xl sm:text-5xl md:text-6xl font-black text-white leading-tight tracking-tight mb-6 max-w-3xl mx-auto">
+        Essa Decis&atilde;o Que Acabaste de Tomar? J&aacute; a Tomaste Antes. <span class="text-rose-400">N&atilde;o Correu Bem Da &Uacute;ltima Vez.</span>
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-8 leading-relaxed">
+        O RiskLoop detecta os padr&otilde;es comportamentais que n&atilde;o consegues ver &mdash; aqueles que te continuam a custar tempo, dinheiro e energia. Antes de repetires o ciclo, o RiskLoop apanha-o.
+      </p>
+
+      <!-- Stat line -->
+      <div class="stat-bar inline-flex items-center gap-3 px-5 py-3 rounded-lg mb-10 text-sm md:text-base text-slate-300">
+        <span class="text-rose-400 font-bold text-lg">5x</span>
+        <span>A pessoa m&eacute;dia repete os mesmos 5 erros dispendiosos todos os anos</span>
+      </div>
+
+      <!-- Hero Email Form -->
+      <form action="https://formspree.io/f/xjgegvpk" method="POST" class="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-lg mx-auto">
+        <input type="hidden" name="product" value="riskloop" />
+        <input
+          type="email"
+          name="email"
+          placeholder="Introduz o teu email"
+          required
+          class="w-full sm:w-80 px-5 py-3.5 bg-white/10 border border-white/15 rounded-xl text-white placeholder-slate-400 text-base backdrop-blur-sm"
+        />
+        <button
+          type="submit"
+          class="w-full sm:w-auto px-8 py-3.5 bg-rose-600 text-white font-semibold rounded-xl btn-pulse whitespace-nowrap text-base"
+        >
+          Ver Os Meus Padr&otilde;es Escondidos &rarr;
+        </button>
+      </form>
+
+      <div class="inline-flex items-center gap-2 bg-rose-500/10 border border-rose-500/20 rounded-full px-4 py-2 mt-4">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-rose-500"></span>
+        </span>
+        <span class="text-rose-300 text-sm font-medium">Beta: 31 vagas de acesso antecipado</span>
+      </div>
+
+      <p class="text-slate-500 text-sm mt-4">Gr&aacute;tis para experimentar. Sem cart&atilde;o de cr&eacute;dito.</p>
+    </div>
+  </section>
+
+  <!-- ===== PROBLEMS ===== -->
+  <section class="py-20 md:py-28 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-14">
+        <p class="text-rose-600 font-semibold text-sm uppercase tracking-widest mb-3">Soa familiar?</p>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Os padr&otilde;es que n&atilde;o v&ecirc;s s&atilde;o os que mais te custam</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Problem 1 -->
+        <div class="bg-white border border-slate-100 rounded-2xl p-8 shadow-sm card-hover border-l-4 border-l-rose-500">
+          <div class="text-4xl mb-5">🔄</div>
+          <h3 class="text-xl font-bold text-slate-900 mb-3">O Projecto Que N&atilde;o Devias Ter Aceite</h3>
+          <p class="text-slate-600 leading-relaxed">Seis meses depois, percebes &mdash; outra vez &mdash; que aceitaste um projecto com os mesmos sinais de alerta do &uacute;ltimo desastre. Nome diferente, mesmo erro.</p>
+        </div>
+
+        <!-- Problem 2 -->
+        <div class="bg-white border border-slate-100 rounded-2xl p-8 shadow-sm card-hover border-l-4 border-l-rose-500">
+          <div class="text-4xl mb-5">💥</div>
+          <h3 class="text-xl font-bold text-slate-900 mb-3">A Discuss&atilde;o Que Continua a Acontecer</h3>
+          <p class="text-slate-600 leading-relaxed">Pessoa diferente, contexto diferente, mesmo conflito. Continuas a cair na mesma discuss&atilde;o porque o gatilho &eacute; invis&iacute;vel para ti.</p>
+        </div>
+
+        <!-- Problem 3 -->
+        <div class="bg-white border border-slate-100 rounded-2xl p-8 shadow-sm card-hover border-l-4 border-l-rose-500">
+          <div class="text-4xl mb-5">💰</div>
+          <h3 class="text-xl font-bold text-slate-900 mb-3">O Custo Que Nunca Calculas</h3>
+          <p class="text-slate-600 leading-relaxed">Aquela &ldquo;pequena&rdquo; m&aacute; decis&atilde;o custou-te 3 meses, 5.000&euro; e uma rela&ccedil;&atilde;o. Mas nunca fizeste as contas &mdash; at&eacute; agora.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Proof -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-8 text-center mb-12">
+        <div>
+          <div class="text-4xl font-extrabold text-slate-900">1.200+</div>
+          <p class="text-slate-500 text-sm mt-1">Padr&otilde;es detectados</p>
+        </div>
+        <div>
+          <div class="text-4xl font-extrabold text-slate-900">89%</div>
+          <p class="text-slate-500 text-sm mt-1">Decis&otilde;es repetidas apanhadas</p>
+        </div>
+        <div>
+          <div class="text-4xl font-extrabold text-slate-900">$47K</div>
+          <p class="text-slate-500 text-sm mt-1">Custo m&eacute;dio evitado por utilizador</p>
+        </div>
+      </div>
+      <div class="max-w-2xl mx-auto text-center">
+        <p class="text-lg text-slate-700 italic leading-relaxed">&ldquo;O RiskLoop mostrou-me que tinha aceite o mesmo tipo de mau cliente tr&ecirc;s vezes seguidas. Nomes diferentes, mesmos sinais de alerta. Salvou-me de o fazer uma quarta vez.&rdquo;</p>
+        <p class="text-sm text-slate-500 mt-3 font-medium">&mdash; Marcus T., Consultor</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HOW IT WORKS ===== -->
+  <section class="py-20 md:py-28 bg-slate-50">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <p class="text-rose-600 font-semibold text-sm uppercase tracking-widest mb-3">Como Funciona</p>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Tr&ecirc;s passos para quebrar o ciclo</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-10">
+        <!-- Step 1 -->
+        <div class="relative bg-white rounded-2xl p-8 pt-12 shadow-sm card-hover overflow-hidden">
+          <div class="fade-number">01</div>
+          <div class="relative">
+            <h3 class="text-xl font-bold text-slate-900 mb-3">Regista as Tuas Decis&otilde;es</h3>
+            <p class="text-slate-600 leading-relaxed">Regista o que decidiste, o contexto e o resultado. R&aacute;pido, simples, constr&oacute;i a tua base de dados pessoal de padr&otilde;es.</p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="relative bg-white rounded-2xl p-8 pt-12 shadow-sm card-hover overflow-hidden">
+          <div class="fade-number">02</div>
+          <div class="relative">
+            <h3 class="text-xl font-bold text-slate-900 mb-3">Detec&ccedil;&atilde;o de Padr&otilde;es por IA</h3>
+            <p class="text-slate-600 leading-relaxed">A IA do RiskLoop analisa o teu hist&oacute;rico e revela padr&otilde;es: &ldquo;J&aacute; tomaste este tipo de decis&atilde;o 4 vezes. Falhou 3 vezes. Eis porqu&ecirc;.&rdquo;</p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="relative bg-white rounded-2xl p-8 pt-12 shadow-sm card-hover overflow-hidden">
+          <div class="fade-number">03</div>
+          <div class="relative">
+            <h3 class="text-xl font-bold text-slate-900 mb-3">Alertas Preditivos</h3>
+            <p class="text-slate-600 leading-relaxed">Prestes a repetir um padr&atilde;o? O RiskLoop avisa-te antes de te comprometeres &mdash; com dados do teu pr&oacute;prio hist&oacute;rico.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FEATURES ===== -->
+  <section class="py-20 md:py-28 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-14">
+        <p class="text-rose-600 font-semibold text-sm uppercase tracking-widest mb-3">Funcionalidades</p>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">O teu kit de intelig&ecirc;ncia comportamental</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Feature 1 -->
+        <div class="text-center p-8">
+          <div class="w-14 h-14 bg-rose-50 rounded-2xl flex items-center justify-center mx-auto mb-5">
+            <svg class="w-7 h-7 text-rose-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 0 1-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 0 1 4.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0 1 12 15a9.065 9.065 0 0 0-6.23.693L5 14.5m14.8.8 1.402 1.402c1.232 1.232.65 3.318-1.067 3.611A48.309 48.309 0 0 1 12 21c-2.773 0-5.491-.235-8.135-.687-1.718-.293-2.3-2.379-1.067-3.61L5 14.5"/></svg>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-3">Reconhecimento de Padr&otilde;es</h3>
+          <p class="text-slate-600 leading-relaxed">A IA identifica padr&otilde;es comportamentais recorrentes em todas as tuas decis&otilde;es registadas, revelando os ciclos invis&iacute;veis que conduzem as tuas escolhas.</p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="text-center p-8">
+          <div class="w-14 h-14 bg-rose-50 rounded-2xl flex items-center justify-center mx-auto mb-5">
+            <svg class="w-7 h-7 text-rose-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z"/></svg>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-3">Score de Risco</h3>
+          <p class="text-slate-600 leading-relaxed">Cada decis&atilde;o recebe um score de risco em tempo real baseado no teu hist&oacute;rico. Escolhas de alto risco ativam alertas antes de te comprometeres.</p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="text-center p-8">
+          <div class="w-14 h-14 bg-rose-50 rounded-2xl flex items-center justify-center mx-auto mb-5">
+            <svg class="w-7 h-7 text-rose-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"/></svg>
+          </div>
+          <h3 class="text-xl font-bold text-slate-900 mb-3">Replay de Decis&otilde;es</h3>
+          <p class="text-slate-600 leading-relaxed">Revive decis&otilde;es passadas lado a lado com as atuais. V&ecirc; exatamente onde o padr&atilde;o coincide &mdash; e onde podes quebr&aacute;-lo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PRICING ===== -->
+  <section id="pricing" class="py-20 md:py-28 bg-slate-50">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-14">
+        <p class="text-rose-600 font-semibold text-sm uppercase tracking-widest mb-3">Pre&ccedil;o</p>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900">Um plano. Tudo inclu&iacute;do.</h2>
+      </div>
+
+      <div class="max-w-md mx-auto">
+        <div class="gradient-border glow-ring">
+          <div class="gradient-border-inner p-10 text-center">
+            <p class="text-rose-600 font-semibold text-sm uppercase tracking-widest mb-6">Acesso Total</p>
+
+            <div class="flex items-baseline justify-center gap-1 mb-2">
+              <span class="text-6xl font-black text-slate-900">$19</span>
+              <span class="text-slate-500 text-lg font-medium">/m&ecirc;s</span>
+            </div>
+            <p class="text-slate-500 text-sm mb-8">Cancela quando quiseres. Sem contratos.</p>
+
+            <ul class="text-left space-y-4 mb-10">
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-rose-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd"/></svg>
+                <span class="text-slate-700">Registo ilimitado de decis&otilde;es</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-rose-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd"/></svg>
+                <span class="text-slate-700">Reconhecimento de padr&otilde;es com IA</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-rose-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd"/></svg>
+                <span class="text-slate-700">Score de risco em tempo real</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-rose-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd"/></svg>
+                <span class="text-slate-700">Replay e compara&ccedil;&atilde;o de decis&otilde;es</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-rose-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd"/></svg>
+                <span class="text-slate-700">Alertas e avisos preditivos</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-rose-600 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd"/></svg>
+                <span class="text-slate-700">Painel pessoal de insights comportamentais</span>
+              </li>
+            </ul>
+
+            <a href="#bottom-cta" class="block w-full px-8 py-4 bg-rose-600 text-white font-semibold rounded-xl btn-pulse text-center text-lg">
+              Obter Acesso Antecipado
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-3xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Perguntas R&aacute;pidas</h2>
+      </div>
+      <div class="space-y-6">
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+          <h3 class="font-bold text-slate-900 mb-2">Qual &eacute; a diferen&ccedil;a para um di&aacute;rio?</h3>
+          <p class="text-slate-600">Um di&aacute;rio regista o que aconteceu. O RiskLoop detecta padr&otilde;es que n&atilde;o consegues ver &mdash; os ciclos invis&iacute;veis que te continuam a custar caro.</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+          <h3 class="font-bold text-slate-900 mb-2">Que tipo de decis&otilde;es rastreia?</h3>
+          <p class="text-slate-600">Tudo: neg&oacute;cios, rela&ccedil;&otilde;es, finan&ccedil;as, carreira. Os padr&otilde;es cruzam todas as &aacute;reas da tua vida.</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+          <h3 class="font-bold text-slate-900 mb-2">Posso cancelar a qualquer momento?</h3>
+          <p class="text-slate-600">Sim. Sem contratos, sem taxas escondidas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BOTTOM CTA ===== -->
+  <section id="bottom-cta" class="gradient-cta relative overflow-hidden">
+    <!-- Decorative background -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <div class="absolute top-0 right-1/4 w-80 h-80 bg-rose-600/10 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-0 left-1/4 w-80 h-80 bg-rose-600/5 rounded-full blur-3xl"></div>
+    </div>
+
+    <div class="relative max-w-3xl mx-auto px-6 py-20 md:py-28 text-center">
+      <h2 class="text-3xl md:text-5xl font-extrabold text-white mb-4 tracking-tight">Quebra Os Teus Padr&otilde;es</h2>
+      <p class="text-lg text-slate-300 mb-10 max-w-xl mx-auto">P&aacute;ra de pagar o imposto escondido dos erros repetidos. Obt&eacute;m acesso antecipado ao RiskLoop e come&ccedil;a a tomar decis&otilde;es de olhos abertos.</p>
+
+      <form action="https://formspree.io/f/xjgegvpk" method="POST" class="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-lg mx-auto">
+        <input type="hidden" name="product" value="riskloop" />
+        <input
+          type="email"
+          name="email"
+          placeholder="o-teu@email.com"
+          required
+          class="w-full sm:w-80 px-5 py-3.5 bg-white/10 border border-white/15 rounded-xl text-white placeholder-slate-400 text-base backdrop-blur-sm"
+        />
+        <button
+          type="submit"
+          class="w-full sm:w-auto px-8 py-3.5 bg-rose-600 text-white font-semibold rounded-xl btn-pulse whitespace-nowrap text-base"
+        >
+          Quebrar Os Meus Padr&otilde;es
+        </button>
+      </form>
+
+      <p class="text-slate-500 text-sm mt-4">Entra na lista de espera. S&ecirc; o primeiro a saber quando lan&ccedil;armos.</p>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="bg-slate-900 border-t border-slate-800">
+    <div class="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <span class="text-lg" aria-hidden="true">🔁</span>
+        <span class="text-sm font-bold text-slate-400">Risk<span class="text-rose-500">Loop</span></span>
+      </div>
+      <p class="text-slate-500 text-sm">&copy; 2025 RiskLoop. Intelig&ecirc;ncia de Risco Comportamental.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

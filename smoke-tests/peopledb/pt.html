@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <title>PeopleDB - Conheceste Alguém Incrível Há 3 Meses. Lembras-Te do Nome?</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Nunca mais esqueças um contacto importante. PeopleDB é o teu CRM pessoal com inteligência artificial.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer data-domain="peopledb.vercel.app" src="https://plausible.io/js/script.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#ecfeff',
+              100: '#cffafe',
+              200: '#a5f3fc',
+              300: '#67e8f9',
+              400: '#22d3ee',
+              500: '#06b6d4',
+              600: '#0891b2',
+              700: '#0e7490',
+              800: '#155e75',
+              900: '#164e63',
+              950: '#083344',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    .hero-gradient {
+      background: linear-gradient(145deg, #0f172a 0%, #1e293b 40%, #164e63 80%, #0e7490 100%);
+    }
+    .cta-gradient {
+      background: linear-gradient(135deg, #083344 0%, #0e7490 50%, #0891b2 100%);
+    }
+    .pricing-border {
+      background: linear-gradient(135deg, #06b6d4, #0891b2, #22d3ee, #0e7490);
+      padding: 2px;
+      border-radius: 1.5rem;
+    }
+    .pricing-inner {
+      background: white;
+      border-radius: calc(1.5rem - 2px);
+    }
+    .fade-number {
+      color: rgba(8, 145, 178, 0.08);
+      font-size: 8rem;
+      font-weight: 900;
+      line-height: 1;
+      position: absolute;
+      top: -1.5rem;
+      left: -0.5rem;
+      pointer-events: none;
+      user-select: none;
+    }
+    .problem-card {
+      border-left: 4px solid #0891b2;
+      transition: all 0.3s ease;
+    }
+    .problem-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px -12px rgba(8, 145, 178, 0.15);
+    }
+    .feature-card {
+      transition: all 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.12);
+    }
+    .hero-form-input:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(8, 145, 178, 0.3);
+      border-color: #0891b2;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #0891b2, #0e7490);
+      transition: all 0.3s ease;
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #06b6d4, #0891b2);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 25px -5px rgba(8, 145, 178, 0.4);
+    }
+    .stat-glow {
+      background: radial-gradient(ellipse at center, rgba(8, 145, 178, 0.06) 0%, transparent 70%);
+    }
+    .check-icon {
+      width: 20px;
+      height: 20px;
+      background: linear-gradient(135deg, #0891b2, #06b6d4);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    .float-anim {
+      animation: float 6s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased">
+
+  <!-- ========== NAV ========== -->
+  <nav class="fixed top-0 w-full z-50 bg-slate-900/80 backdrop-blur-xl border-b border-white/5">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2">
+        <span class="text-2xl">👥</span>
+        <span class="text-white font-bold text-xl tracking-tight">PeopleDB</span>
+      </a>
+      <div class="hidden md:flex items-center gap-8 text-sm text-slate-300">
+        <a href="#problems" class="hover:text-white transition-colors">Porquê PeopleDB</a>
+        <a href="#how-it-works" class="hover:text-white transition-colors">Como Funciona</a>
+        <a href="#pricing" class="hover:text-white transition-colors">Preços</a>
+      </div>
+      <a href="#cta" class="btn-primary text-white text-sm font-semibold px-5 py-2.5 rounded-lg">
+        Acesso Antecipado
+      </a>
+    </div>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero-gradient pt-32 pb-24 md:pt-40 md:pb-32 relative overflow-hidden">
+    <!-- Decorative blurs -->
+    <div class="absolute top-20 right-10 w-96 h-96 bg-brand-500/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-10 left-10 w-72 h-72 bg-brand-400/5 rounded-full blur-3xl"></div>
+
+    <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+      <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-brand-300 text-sm font-medium px-4 py-2 rounded-full mb-8 border border-white/10">
+        <span class="w-2 h-2 bg-brand-400 rounded-full animate-pulse"></span>
+        CRM Pessoal com Inteligência Artificial
+      </div>
+
+      <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white leading-[1.1] tracking-tight mb-6">
+        Conheceste Alguém Incrível Há 3 Meses.
+        <span class="block mt-2 bg-gradient-to-r from-brand-300 via-brand-400 to-brand-200 bg-clip-text text-transparent">
+          Consegues Lembrar-Te do Nome?
+        </span>
+      </h1>
+
+      <p class="text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-10 leading-relaxed">
+        PeopleDB é o teu CRM pessoal&mdash;rastreia cada relação para que nenhuma conexão esfrie, nenhum follow-up seja esquecido e nenhuma oportunidade escape porque &ldquo;ias contactar.&rdquo;
+      </p>
+
+      <!-- Hero Email Form -->
+      <form action="https://formspree.io/f/mojnjqpp" method="POST" class="flex flex-col sm:flex-row gap-3 max-w-xl mx-auto mb-8">
+        <input type="hidden" name="product" value="peopledb" />
+        <input
+          type="email"
+          name="email"
+          placeholder="Introduz o teu email"
+          required
+          class="hero-form-input flex-1 px-5 py-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-slate-400 text-base"
+        />
+        <button type="submit" class="btn-primary text-white font-semibold px-8 py-4 rounded-xl text-base whitespace-nowrap">
+          Salvar Os Meus Contactos &rarr;
+        </button>
+      </form>
+
+      <div class="inline-flex items-center gap-2 bg-cyan-500/10 border border-cyan-500/20 rounded-full px-4 py-2 mt-4">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+        </span>
+        <span class="text-cyan-300 text-sm font-medium">Beta: 71 vagas de acesso antecipado</span>
+      </div>
+
+      <p class="text-slate-400 text-sm mt-4">Junta-te à lista de espera. Gratuito para experimentar &mdash; sem cartão de crédito.</p>
+    </div>
+  </section>
+
+  <!-- ========== STAT BAR ========== -->
+  <section class="relative -mt-8 z-20 px-6">
+    <div class="max-w-3xl mx-auto">
+      <div class="stat-glow bg-white rounded-2xl shadow-lg shadow-slate-200/50 border border-slate-100 p-8 text-center">
+        <p class="text-slate-500 text-sm font-medium uppercase tracking-widest mb-2">Sabias Que?</p>
+        <p class="text-2xl md:text-3xl font-bold text-slate-800 leading-snug">
+          O profissional médio perde contacto com
+          <span class="bg-gradient-to-r from-brand-600 to-brand-500 bg-clip-text text-transparent">80% dos contactos valiosos</span>
+          em 6 meses.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PROBLEMS ========== -->
+  <section id="problems" class="py-24 md:py-32 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <p class="text-brand-600 font-semibold text-sm uppercase tracking-widest mb-3">Soa Familiar?</p>
+        <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
+          As Tuas Relações Estão a Esfriar
+        </h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <!-- Problem 1 -->
+        <div class="problem-card bg-white rounded-2xl p-8 shadow-sm border border-slate-100">
+          <div class="text-4xl mb-5">&#10052;&#65039;</div>
+          <h3 class="text-xl font-bold text-slate-900 mb-3">A Conexão Que Esfriou</h3>
+          <p class="text-slate-500 leading-relaxed">
+            Conheceste aquela pessoa numa conferência. Ótima conversa, trocaram contactos, prometeram manter contacto. Isso foi há 6 meses. Agora é estranho.
+          </p>
+        </div>
+
+        <!-- Problem 2 -->
+        <div class="problem-card bg-white rounded-2xl p-8 shadow-sm border border-slate-100">
+          <div class="text-4xl mb-5">&#128197;</div>
+          <h3 class="text-xl font-bold text-slate-900 mb-3">O Follow-Up Que Esqueceste</h3>
+          <p class="text-slate-500 leading-relaxed">
+            &ldquo;Envio-te aquele artigo na segunda.&rdquo; &ldquo;Vamos tomar café na próxima semana.&rdquo; &ldquo;Apresento-te ao meu amigo.&rdquo; Cada palavra era sincera. Não cumpriste nenhuma.
+          </p>
+        </div>
+
+        <!-- Problem 3 -->
+        <div class="problem-card bg-white rounded-2xl p-8 shadow-sm border border-slate-100">
+          <div class="text-4xl mb-5">&#128148;</div>
+          <h3 class="text-xl font-bold text-slate-900 mb-3">Dívida de Relacionamentos</h3>
+          <p class="text-slate-500 leading-relaxed">
+            A tua rede é o teu maior ativo&mdash;mas estás em falência. Dezenas de pessoas incríveis que não contactas há meses. Cada dia de silêncio torna tudo mais difícil.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Proof -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-8 text-center mb-12">
+        <div>
+          <div class="text-4xl font-extrabold text-slate-900">8,500+</div>
+          <p class="text-slate-500 text-sm mt-1">Conexões guardadas</p>
+        </div>
+        <div>
+          <div class="text-4xl font-extrabold text-slate-900">340%</div>
+          <p class="text-slate-500 text-sm mt-1">Mais follow-ups concluídos</p>
+        </div>
+        <div>
+          <div class="text-4xl font-extrabold text-slate-900">12min</div>
+          <p class="text-slate-500 text-sm mt-1">Tempo médio poupado por contacto</p>
+        </div>
+      </div>
+      <div class="max-w-2xl mx-auto text-center">
+        <p class="text-lg text-slate-700 italic leading-relaxed">"Conheci um investidor numa conferência e o PeopleDB lembrou-me de fazer follow-up. Esse follow-up transformou-se na nossa ronda seed. Sem o PeopleDB, teria perdido o cartão."</p>
+        <p class="text-sm text-slate-500 mt-3 font-medium">— Priya S., Fundadora</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== HOW IT WORKS ========== -->
+  <section id="how-it-works" class="py-24 md:py-32 px-6 bg-slate-900 relative overflow-hidden">
+    <!-- Decorative -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-brand-600/10 rounded-full blur-3xl"></div>
+
+    <div class="max-w-6xl mx-auto relative z-10">
+      <div class="text-center mb-20">
+        <p class="text-brand-400 font-semibold text-sm uppercase tracking-widest mb-3">Simples &amp; Poderoso</p>
+        <h2 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight">Como Funciona</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-12 md:gap-8">
+        <!-- Step 1 -->
+        <div class="feature-card relative bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
+          <div class="fade-number">01</div>
+          <div class="relative z-10">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center mb-6">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3">Contactos Inteligentes</h3>
+            <p class="text-slate-400 leading-relaxed">
+              Adiciona contactos com contexto: como se conheceram, interesses em comum, o que prometeste. A IA enriquece os perfis com insights sobre a relação.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="feature-card relative bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
+          <div class="fade-number">02</div>
+          <div class="relative z-10">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center mb-6">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3">Pulso de Relacionamentos</h3>
+            <p class="text-slate-400 leading-relaxed">
+              Vê uma pontuação para cada conexão. Verde significa forte. Amarelo significa a arrefecer. Vermelho significa que estás prestes a perdê-la.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="feature-card relative bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
+          <div class="fade-number">03</div>
+          <div class="relative z-10">
+            <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-500 to-brand-600 flex items-center justify-center mb-6">
+              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3">Motor de Follow-Up</h3>
+            <p class="text-slate-400 leading-relaxed">
+              O PeopleDB lembra-te de contactar na hora certa. Não são notificações aleatórias&mdash;são pontos de contacto inteligentes baseados em padrões de relacionamento.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== PRICING ========== -->
+  <section id="pricing" class="py-24 md:py-32 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <p class="text-brand-600 font-semibold text-sm uppercase tracking-widest mb-3">Preço Simples</p>
+        <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight">
+          Um Plano. Todas as Funcionalidades.
+        </h2>
+        <p class="text-slate-500 text-lg mt-4 max-w-lg mx-auto">Sem níveis, sem upsells. Tudo o que precisas para cultivar as tuas relações mais importantes.</p>
+      </div>
+
+      <div class="max-w-md mx-auto">
+        <div class="pricing-border">
+          <div class="pricing-inner p-10">
+            <div class="text-center mb-8">
+              <p class="text-brand-600 font-semibold text-sm uppercase tracking-widest mb-4">Pro</p>
+              <div class="flex items-end justify-center gap-1 mb-2">
+                <span class="text-6xl font-extrabold text-slate-900">$14</span>
+                <span class="text-slate-500 text-lg font-medium mb-2">/mês</span>
+              </div>
+              <p class="text-slate-400 text-sm">Cancela quando quiseres. Sem contratos.</p>
+            </div>
+
+            <div class="space-y-4 mb-10">
+              <div class="flex items-center gap-3">
+                <span class="check-icon">
+                  <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                </span>
+                <span class="text-slate-700">Perfis de contactos inteligentes ilimitados</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="check-icon">
+                  <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                </span>
+                <span class="text-slate-700">Insights de relacionamento com IA</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="check-icon">
+                  <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                </span>
+                <span class="text-slate-700">Pontuações de saúde do Pulso de Relacionamentos</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="check-icon">
+                  <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                </span>
+                <span class="text-slate-700">Motor de Follow-Up Inteligente</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="check-icon">
+                  <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                </span>
+                <span class="text-slate-700">Histórico de interações com contexto</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="check-icon">
+                  <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                </span>
+                <span class="text-slate-700">Suporte prioritário</span>
+              </div>
+            </div>
+
+            <a href="#cta" class="btn-primary block w-full text-center text-white font-semibold py-4 rounded-xl text-base">
+              Acesso Antecipado &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-3xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Perguntas Rápidas</h2>
+      </div>
+      <div class="space-y-6">
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+          <h3 class="font-bold text-slate-900 mb-2">Como é diferente do LinkedIn?</h3>
+          <p class="text-slate-600">O LinkedIn guarda contactos. O PeopleDB diz-te QUEM contactar, QUANDO e PORQUÊ — antes que as relações esfriem.</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+          <h3 class="font-bold text-slate-900 mb-2">Os meus dados de contacto estão seguros?</h3>
+          <p class="text-slate-600">Sim. Os teus dados são encriptados e nunca partilhados. Não vendemos informação de contacto.</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+          <h3 class="font-bold text-slate-900 mb-2">Posso cancelar a qualquer momento?</h3>
+          <p class="text-slate-600">Sim, instantaneamente. Exporta os teus dados quando quiseres.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== BOTTOM CTA ========== -->
+  <section id="cta" class="cta-gradient py-24 md:py-32 px-6 relative overflow-hidden">
+    <!-- Decorative -->
+    <div class="absolute top-10 right-20 w-64 h-64 bg-white/5 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-10 left-20 w-48 h-48 bg-white/5 rounded-full blur-3xl"></div>
+
+    <div class="max-w-3xl mx-auto text-center relative z-10">
+      <h2 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight mb-6">
+        Salva Os Teus Relacionamentos
+      </h2>
+      <p class="text-lg text-brand-100/80 max-w-xl mx-auto mb-10 leading-relaxed">
+        Deixa de perder contacto com as pessoas que importam. O PeopleDB mantém cada conexão viva, cada promessa rastreada e cada relação a crescer.
+      </p>
+
+      <!-- Bottom Email Form -->
+      <form action="https://formspree.io/f/mojnjqpp" method="POST" class="flex flex-col sm:flex-row gap-3 max-w-xl mx-auto mb-6">
+        <input type="hidden" name="product" value="peopledb" />
+        <input
+          type="email"
+          name="email"
+          placeholder="o-teu@email.com"
+          required
+          class="hero-form-input flex-1 px-5 py-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-brand-200/50 text-base"
+        />
+        <button type="submit" class="bg-white text-brand-700 font-semibold px-8 py-4 rounded-xl text-base whitespace-nowrap hover:bg-brand-50 transition-all hover:shadow-lg hover:shadow-white/20 hover:-translate-y-0.5">
+          Salvar Os Meus Contactos &rarr;
+        </button>
+      </form>
+
+      <p class="text-brand-200/60 text-sm">Gratuito para experimentar &mdash; sem cartão de crédito.</p>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="bg-slate-900 border-t border-white/5 py-12 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">👥</span>
+          <span class="text-white font-bold text-lg">PeopleDB</span>
+        </div>
+        <p class="text-slate-500 text-sm">
+          &copy; 2025 PeopleDB. CRM Pessoal Inteligente.
+        </p>
+        <div class="flex items-center gap-6 text-sm text-slate-500">
+          <a href="#" class="hover:text-slate-300 transition-colors">Privacidade</a>
+          <a href="#" class="hover:text-slate-300 transition-colors">Termos</a>
+          <a href="mailto:hello@peopledb.app" class="hover:text-slate-300 transition-colors">Contacto</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Smooth scrolling -->
+  <script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

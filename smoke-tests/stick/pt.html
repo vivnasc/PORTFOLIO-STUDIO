@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="pt" class="scroll-smooth">
+<head>
+  <title>Stick - O Último App de Hábitos Que Vais Precisar</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer data-domain="stick.vercel.app" src="https://plausible.io/js/script.js"></script>
+  <meta name="description" content="Não precisas de mais motivação. Precisas de menos fricção. O Stick remove as barreiras invisíveis aos teus hábitos.">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            emerald: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              200: '#a7f3d0',
+              300: '#6ee7b7',
+              400: '#34d399',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+              800: '#065f46',
+              900: '#064e3b',
+              950: '#022c22',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+
+    .hero-gradient {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 40%, #064e3b 100%);
+    }
+
+    .cta-gradient {
+      background: linear-gradient(135deg, #064e3b 0%, #1e293b 50%, #0f172a 100%);
+    }
+
+    .pricing-border {
+      background: linear-gradient(135deg, #10b981, #34d399, #059669);
+      padding: 2px;
+      border-radius: 1rem;
+    }
+
+    .pricing-inner {
+      background: white;
+      border-radius: calc(1rem - 2px);
+    }
+
+    .fade-number {
+      color: rgba(16, 185, 129, 0.08);
+      font-size: 7rem;
+      font-weight: 900;
+      line-height: 1;
+      position: absolute;
+      top: -0.75rem;
+      left: -0.25rem;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .problem-card {
+      border-left: 4px solid #10b981;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .problem-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+    }
+
+    .step-card {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .step-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      transition: all 0.2s ease;
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.35);
+    }
+
+    .hero-input:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.3);
+      border-color: #10b981;
+    }
+
+    .stat-counter {
+      display: inline-block;
+      font-variant-numeric: tabular-nums;
+    }
+
+    @keyframes counter {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-in {
+      animation: counter 0.6s ease-out forwards;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 antialiased">
+
+  <!-- Navigation / Logo -->
+  <nav class="hero-gradient">
+    <div class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="text-2xl">🌿</span>
+        <span class="text-xl font-bold text-white tracking-tight">Stick</span>
+      </div>
+      <a href="#pricing" class="text-sm text-emerald-300 hover:text-white font-medium transition-colors">
+        Ver Preços
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-gradient pb-24 pt-16 md:pt-24 md:pb-32">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <!-- Stat Line -->
+      <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/10 rounded-full px-5 py-2 mb-8">
+        <span class="text-emerald-400 text-sm font-semibold">A pessoa média abandona um novo hábito em 8.3 dias.</span>
+      </div>
+
+      <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white leading-tight mb-6 tracking-tight">
+        Não Precisas de Mais Motivação.<br class="hidden sm:block">
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-emerald-300">Precisas de Menos Fricção.</span>
+      </h1>
+
+      <p class="text-lg md:text-xl text-slate-300 mb-4 max-w-2xl mx-auto leading-relaxed">
+        Todas as apps de hábitos dizem "faz". O Stick descobre <span class="text-white font-medium">PORQUÊ</span> não estás a fazer&mdash;e remove o obstáculo. É por isso que estes hábitos colam.
+      </p>
+
+      <!-- Counter stat -->
+      <p class="text-slate-400 mb-10 text-base">
+        Quantos hábitos já começaste e abandonaste? <span class="text-emerald-400 font-bold stat-counter">12? 20? 50+?</span> A culpa não é tua.
+      </p>
+
+      <!-- Hero Email Form -->
+      <form action="https://formspree.io/f/xykdkybp" method="POST" class="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-lg mx-auto">
+        <input type="hidden" name="product" value="stick" />
+        <input
+          type="email"
+          name="email"
+          placeholder="Insere o teu email"
+          required
+          class="hero-input w-full sm:w-80 px-5 py-3.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-base backdrop-blur-sm"
+        />
+        <button type="submit" class="btn-primary w-full sm:w-auto px-8 py-3.5 text-white font-semibold rounded-xl text-base whitespace-nowrap cursor-pointer">
+          Descobre O Que Te Bloqueia &rarr;
+        </button>
+      </form>
+
+      <div class="inline-flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-4 py-2 mt-4">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+        </span>
+        <span class="text-emerald-300 text-sm font-medium">Beta: 47 vagas de acesso antecipado</span>
+      </div>
+
+      <p class="text-slate-500 text-sm mt-4">Grátis para experimentar. Sem cartão de crédito.</p>
+    </div>
+  </section>
+
+  <!-- Problem Section -->
+  <section class="py-20 md:py-28 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-14">
+        <p class="text-emerald-600 font-semibold text-sm uppercase tracking-widest mb-3">Parece familiar?</p>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">A Armadilha dos Hábitos Que Ninguém Fala</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 md:gap-8">
+        <!-- Problem Card 1 -->
+        <div class="problem-card bg-white rounded-xl p-7 shadow-sm border border-gray-100">
+          <div class="text-3xl mb-4">🔥</div>
+          <h3 class="text-lg font-bold text-slate-900 mb-3">Dia 1: Entusiasmado. Dia 8: Desistiu.</h3>
+          <p class="text-slate-600 leading-relaxed">Descarregaste a app, puseste o alarme, compraste o equipamento. Na segunda semana, passas pela notificação sem abrir.</p>
+        </div>
+
+        <!-- Problem Card 2 -->
+        <div class="problem-card bg-white rounded-xl p-7 shadow-sm border border-gray-100">
+          <div class="text-3xl mb-4">📱</div>
+          <h3 class="text-lg font-bold text-slate-900 mb-3">A Parede Invisível</h3>
+          <p class="text-slate-600 leading-relaxed">Queres fazer exercício. Sabes como. Tens tempo. Mas algo te trava todos os dias&mdash;e não sabes explicar o quê.</p>
+        </div>
+
+        <!-- Problem Card 3 -->
+        <div class="problem-card bg-white rounded-xl p-7 shadow-sm border border-gray-100">
+          <div class="text-3xl mb-4">💪</div>
+          <h3 class="text-lg font-bold text-slate-900 mb-3">Força de Vontade Não É Estratégia</h3>
+          <p class="text-slate-600 leading-relaxed">Já tentaste frases motivacionais, parceiros de accountability e desafios de 30 dias. Nenhum resolve o problema real: fricção.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Proof -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-8 text-center mb-12">
+        <div>
+          <div class="text-4xl font-extrabold text-slate-900">2,847</div>
+          <p class="text-slate-500 text-sm mt-1">Utilizadores beta</p>
+        </div>
+        <div>
+          <div class="text-4xl font-extrabold text-slate-900">73%</div>
+          <p class="text-slate-500 text-sm mt-1">Hábitos que duraram mais de 30 dias</p>
+        </div>
+        <div>
+          <div class="text-4xl font-extrabold text-slate-900">8.3→47</div>
+          <p class="text-slate-500 text-sm mt-1">Dias médios antes de desistir</p>
+        </div>
+      </div>
+      <div class="max-w-2xl mx-auto text-center">
+        <p class="text-lg text-slate-700 italic leading-relaxed">"Tentei todas as apps de hábitos. O Stick foi o primeiro que descobriu que o meu problema com o ginásio não era motivação — era que o meu saco estava na cave."</p>
+        <p class="text-sm text-slate-500 mt-3 font-medium">— Jamie R., Programador</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="py-20 md:py-28 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-14">
+        <p class="text-emerald-600 font-semibold text-sm uppercase tracking-widest mb-3">Simples e poderoso</p>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Como Funciona</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 md:gap-8">
+        <!-- Step 1 -->
+        <div class="step-card relative bg-white rounded-2xl p-8 shadow-sm border border-gray-100 overflow-hidden">
+          <span class="fade-number">01</span>
+          <div class="relative z-10">
+            <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 font-bold text-sm mb-5">1</div>
+            <h3 class="text-lg font-bold text-slate-900 mb-3">Detector de Fricção</h3>
+            <p class="text-slate-600 leading-relaxed">A IA analisa as tuas tentativas e identifica exactamente o que te bloqueia. Não conselhos vagos&mdash;pontos de fricção específicos.</p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="step-card relative bg-white rounded-2xl p-8 shadow-sm border border-gray-100 overflow-hidden">
+          <span class="fade-number">02</span>
+          <div class="relative z-10">
+            <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 font-bold text-sm mb-5">2</div>
+            <h3 class="text-lg font-bold text-slate-900 mb-3">Micro-Passos</h3>
+            <p class="text-slate-600 leading-relaxed">Em vez de "vai ao ginásio", o Stick diz "põe os ténis à porta". Acções mínimas que ultrapassam a fricção.</p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="step-card relative bg-white rounded-2xl p-8 shadow-sm border border-gray-100 overflow-hidden">
+          <span class="fade-number">03</span>
+          <div class="relative z-10">
+            <div class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-emerald-100 text-emerald-700 font-bold text-sm mb-5">3</div>
+            <h3 class="text-lg font-bold text-slate-900 mb-3">Protecção Anti-Skip</h3>
+            <p class="text-slate-600 leading-relaxed">Prestes a quebrar a sequência? O Stick oferece uma micro-versão de 2 minutos do teu hábito. Manténs a consistência sem a pressão.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section id="pricing" class="py-20 md:py-28 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-14">
+        <p class="text-emerald-600 font-semibold text-sm uppercase tracking-widest mb-3">Preço simples</p>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">Um Plano. Tudo Incluído.</h2>
+      </div>
+
+      <div class="max-w-md mx-auto">
+        <div class="pricing-border">
+          <div class="pricing-inner p-8 md:p-10 text-center">
+            <p class="text-emerald-600 font-semibold text-sm uppercase tracking-widest mb-4">Plano Pro</p>
+            <div class="flex items-baseline justify-center gap-1 mb-2">
+              <span class="text-6xl font-extrabold text-slate-900">$9</span>
+              <span class="text-slate-500 text-lg font-medium">/mês</span>
+            </div>
+            <p class="text-slate-500 mb-8">Menos que um café por dia.</p>
+
+            <div class="space-y-4 text-left mb-8">
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-emerald-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span class="text-slate-700">Análise de Fricção com IA</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-emerald-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span class="text-slate-700">Micro-Passos personalizados</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-emerald-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span class="text-slate-700">Protecção Anti-Skip</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-emerald-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span class="text-slate-700">Hábitos ilimitados</span>
+              </div>
+              <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-emerald-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span class="text-slate-700">Relatórios semanais</span>
+              </div>
+            </div>
+
+            <a href="#bottom-cta" class="btn-primary inline-block w-full py-3.5 text-white font-semibold rounded-xl text-base text-center cursor-pointer">
+              Começar Agora &rarr;
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-3xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Perguntas Rápidas</h2>
+      </div>
+      <div class="space-y-6">
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+          <h3 class="font-bold text-slate-900 mb-2">Isto é mais um tracker de hábitos?</h3>
+          <p class="text-slate-600">Não. Não contamos sequências — removemos fricção. O Stick descobre PORQUÊ paras e elimina o bloqueio.</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+          <h3 class="font-bold text-slate-900 mb-2">Quanto tempo demora a configurar?</h3>
+          <p class="text-slate-600">2 minutos. Um questionário rápido e a IA encontra os pontos de fricção.</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+          <h3 class="font-bold text-slate-900 mb-2">Posso cancelar quando quiser?</h3>
+          <p class="text-slate-600">Sim, instantaneamente. Sem perguntas, sem culpa, sem taxas escondidas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bottom CTA Section -->
+  <section id="bottom-cta" class="cta-gradient py-20 md:py-28">
+    <div class="max-w-3xl mx-auto px-6 text-center">
+      <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-4 tracking-tight">Faz Com Que Cole</h2>
+      <p class="text-slate-300 text-lg mb-10 max-w-xl mx-auto leading-relaxed">
+        Pára de recomeçar. Constrói hábitos que duram&mdash;removendo a fricção que te tem travado.
+      </p>
+
+      <form action="https://formspree.io/f/xykdkybp" method="POST" class="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-lg mx-auto">
+        <input type="hidden" name="product" value="stick" />
+        <input
+          type="email"
+          name="email"
+          placeholder="teu@email.com"
+          required
+          class="hero-input w-full sm:w-80 px-5 py-3.5 rounded-xl bg-white/10 border border-white/20 text-white placeholder-slate-400 text-base backdrop-blur-sm"
+        />
+        <button type="submit" class="btn-primary w-full sm:w-auto px-8 py-3.5 text-white font-semibold rounded-xl text-base whitespace-nowrap cursor-pointer">
+          Faz Com Que Cole &rarr;
+        </button>
+      </form>
+
+      <p class="text-slate-500 text-sm mt-4">Grátis para experimentar. Sem cartão de crédito.</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-slate-950 py-10">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <div class="flex items-center justify-center gap-2 mb-3">
+        <span class="text-lg">🌿</span>
+        <span class="text-white font-semibold">Stick</span>
+      </div>
+      <p class="text-slate-500 text-sm">Feito para humanos que querem mudar.</p>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="pt" class="scroll-smooth">
+<head>
+  <title>EnergyOS - Pára de Agendar Trabalho Profundo Quando o Teu Cérebro Está Morto</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Pára de agendar trabalho profundo quando o teu cérebro está morto. EnergyOS mapeia os ritmos do teu corpo para otimizar o teu calendário.">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer data-domain="energyos.vercel.app" src="https://plausible.io/js/script.js"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#fffbeb',
+              100: '#fef3c7',
+              200: '#fde68a',
+              300: '#fcd34d',
+              400: '#fbbf24',
+              500: '#f59e0b',
+              600: '#d97706',
+              700: '#b45309',
+              800: '#92400e',
+              900: '#78350f',
+            },
+            navy: {
+              800: '#1e2a3a',
+              900: '#0f172a',
+              950: '#080d19',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+    body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+
+    .hero-gradient {
+      background: linear-gradient(135deg, #080d19 0%, #1e2a3a 40%, #1a1a2e 60%, #2d1b00 100%);
+    }
+
+    .amber-glow {
+      box-shadow: 0 0 60px rgba(245, 158, 11, 0.15), 0 0 120px rgba(245, 158, 11, 0.05);
+    }
+
+    .pricing-border {
+      background: linear-gradient(135deg, #f59e0b, #d97706, #f59e0b);
+      padding: 2px;
+      border-radius: 1.5rem;
+    }
+
+    .pricing-inner {
+      background: white;
+      border-radius: calc(1.5rem - 2px);
+    }
+
+    .stat-line {
+      background: linear-gradient(90deg, rgba(245,158,11,0.08) 0%, rgba(245,158,11,0.15) 50%, rgba(245,158,11,0.08) 100%);
+    }
+
+    .cta-gradient {
+      background: linear-gradient(135deg, #78350f 0%, #92400e 30%, #b45309 60%, #78350f 100%);
+    }
+
+    .step-number {
+      -webkit-text-stroke: 1.5px rgba(245, 158, 11, 0.15);
+      color: transparent;
+    }
+
+    .fade-in {
+      animation: fadeInUp 0.6s ease-out both;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card-hover {
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    }
+
+    .btn-primary {
+      transition: all 0.2s ease;
+    }
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(245, 158, 11, 0.4);
+    }
+
+    .input-glow:focus {
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+    }
+
+    /* Smooth scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; }
+    ::-webkit-scrollbar-thumb { background: #d97706; border-radius: 4px; }
+  </style>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased">
+
+  <!-- ===================== NAVBAR ===================== -->
+  <nav class="hero-gradient fixed top-0 w-full z-50 border-b border-white/5">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2 group">
+        <span class="text-2xl">&#9889;</span>
+        <span class="text-xl font-extrabold text-white tracking-tight">Energy<span class="text-brand-400">OS</span></span>
+      </a>
+      <a href="#pricing" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 bg-brand-500 text-white text-sm font-semibold rounded-full btn-primary hover:bg-brand-400">
+        Começar
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ===================== HERO ===================== -->
+  <header class="hero-gradient pt-32 pb-20 md:pt-40 md:pb-28 relative overflow-hidden">
+    <!-- Decorative orbs -->
+    <div class="absolute top-20 left-1/4 w-96 h-96 bg-brand-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-0 right-1/4 w-80 h-80 bg-brand-600/8 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-4xl mx-auto px-6 text-center relative z-10">
+      <!-- Badge -->
+      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-brand-300 text-sm font-medium mb-8 backdrop-blur-sm">
+        <span class="w-2 h-2 bg-brand-400 rounded-full animate-pulse"></span>
+        Gestão de Energia e Performance
+      </div>
+
+      <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white leading-[1.08] tracking-tight mb-6">
+        Paras de Agendar Trabalho Profundo<br class="hidden md:block"> Quando o Teu Cérebro Está
+        <span class="relative inline-block">
+          <span class="text-brand-400">Morto</span>
+          <svg class="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 8" fill="none"><path d="M1 5.5Q50 1 100 5t99-1" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round"/></svg>
+        </span>
+      </h1>
+
+      <p class="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto mb-10 leading-relaxed">
+        EnergyOS aprende quando estás afiado e quando estás esgotado&mdash;e diz-te o que fazer e quando. O teu calendário não conhece o teu corpo. <span class="text-white font-medium">EnergyOS conhece.</span>
+      </p>
+
+      <!-- Hero Email Form -->
+      <form action="https://formspree.io/f/maqdqyle" method="POST" class="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-lg mx-auto mb-8">
+        <input type="hidden" name="product" value="energyos" />
+        <input
+          type="email"
+          name="email"
+          placeholder="Introduz o teu email"
+          required
+          class="w-full sm:flex-1 px-5 py-4 rounded-xl bg-white/10 border border-white/15 text-white placeholder-gray-400 text-base focus:outline-none input-glow backdrop-blur-sm"
+        />
+        <button
+          type="submit"
+          class="w-full sm:w-auto px-8 py-4 bg-brand-500 hover:bg-brand-400 text-white font-bold rounded-xl text-base btn-primary whitespace-nowrap flex items-center justify-center gap-2"
+        >
+          Mapear A Minha Energia &rarr;
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        </button>
+      </form>
+
+      <div class="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/20 rounded-full px-4 py-2 mt-4">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+        </span>
+        <span class="text-amber-300 text-sm font-medium">Beta: 63 vagas de acesso antecipado</span>
+      </div>
+
+      <p class="text-sm text-gray-500 mt-4">Grátis para experimentar. Sem cartão de crédito. &middot; $14/mês após período grátis</p>
+    </div>
+  </header>
+
+  <!-- ===================== STAT LINE ===================== -->
+  <section class="stat-line border-y border-brand-200/40">
+    <div class="max-w-4xl mx-auto px-6 py-6 text-center">
+      <p class="text-base sm:text-lg font-medium text-gray-700">
+        <span class="text-brand-600 font-bold text-xl sm:text-2xl">73%</span>
+        <span class="mx-2 text-gray-300">|</span>
+        dos profissionais agendam o trabalho mais difícil nas horas de menor energia
+      </p>
+    </div>
+  </section>
+
+  <!-- ===================== PROBLEMS ===================== -->
+  <section class="py-20 md:py-28 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-14">
+        <p class="text-brand-600 font-semibold text-sm tracking-widest uppercase mb-3">Soa Familiar?</p>
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight">O teu calendário está a trabalhar contra ti</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
+        <!-- Problem 1 -->
+        <div class="bg-gray-50 rounded-2xl p-7 border-l-4 border-brand-500 shadow-sm card-hover">
+          <div class="text-3xl mb-4">&#9889;</div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Reuniões às 10h, Trabalho Profundo às 15h</h3>
+          <p class="text-gray-600 leading-relaxed">As tuas melhores horas de raciocínio desperdiçadas em chamadas. Os teus blocos criativos agendados quando já estás de rastos.</p>
+        </div>
+
+        <!-- Problem 2 -->
+        <div class="bg-gray-50 rounded-2xl p-7 border-l-4 border-brand-500 shadow-sm card-hover">
+          <div class="text-3xl mb-4">&#129521;</div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">A Parede da Tarde</h3>
+          <p class="text-gray-600 leading-relaxed">Todos os dias por volta das 14h, o teu cérebro desliga. Mas o teu calendário não quer saber&mdash;continua a empurrar.</p>
+        </div>
+
+        <!-- Problem 3 -->
+        <div class="bg-gray-50 rounded-2xl p-7 border-l-4 border-brand-500 shadow-sm card-hover">
+          <div class="text-3xl mb-4">&#128260;</div>
+          <h3 class="text-xl font-bold text-gray-900 mb-3">Push-Crash-Repetir</h3>
+          <p class="text-gray-600 leading-relaxed">Dás tudo de segunda a quarta, depois arrastas-te de quinta a sexta. Todas as semanas, sem exceção.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Social Proof -->
+  <section class="py-16 bg-gray-50">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-8 text-center mb-12">
+        <div>
+          <div class="text-4xl font-extrabold text-slate-900">3.100+</div>
+          <p class="text-slate-500 text-sm mt-1">Mapas de energia criados</p>
+        </div>
+        <div>
+          <div class="text-4xl font-extrabold text-slate-900">2.4hrs</div>
+          <p class="text-slate-500 text-sm mt-1">Trabalho profundo ganho por semana</p>
+        </div>
+        <div>
+          <div class="text-4xl font-extrabold text-slate-900">91%</div>
+          <p class="text-slate-500 text-sm mt-1">Precisão dos relatórios</p>
+        </div>
+      </div>
+      <div class="max-w-2xl mx-auto text-center">
+        <p class="text-lg text-slate-700 italic leading-relaxed">"Mudei o meu trabalho criativo para as manhãs e as chamadas para depois do almoço. Mesmas horas, resultado completamente diferente. EnergyOS mostrou-me o que o meu calendário não conseguia."</p>
+        <p class="text-sm text-slate-500 mt-3 font-medium">— Diana P., Diretora de Marketing</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== HOW IT WORKS ===================== -->
+  <section class="py-20 md:py-28 bg-gray-50">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <p class="text-brand-600 font-semibold text-sm tracking-widest uppercase mb-3">Como Funciona</p>
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight">Três passos para a performance máxima</h2>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 lg:gap-12">
+        <!-- Step 1 -->
+        <div class="relative text-center md:text-left">
+          <div class="step-number text-8xl md:text-9xl font-black absolute -top-6 left-1/2 md:left-0 -translate-x-1/2 md:translate-x-0 select-none pointer-events-none leading-none">01</div>
+          <div class="relative bg-white rounded-2xl p-8 shadow-sm card-hover border border-gray-100">
+            <div class="w-12 h-12 rounded-xl bg-brand-100 flex items-center justify-center mb-5">
+              <svg class="w-6 h-6 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Mapeamento de Energia</h3>
+            <p class="text-gray-600 leading-relaxed">Check-ins diários rápidos ensinam ao EnergyOS os teus ritmos naturais. Aprende quando estás no pico e quando estás em baixo.</p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="relative text-center md:text-left">
+          <div class="step-number text-8xl md:text-9xl font-black absolute -top-6 left-1/2 md:left-0 -translate-x-1/2 md:translate-x-0 select-none pointer-events-none leading-none">02</div>
+          <div class="relative bg-white rounded-2xl p-8 shadow-sm card-hover border border-gray-100">
+            <div class="w-12 h-12 rounded-xl bg-brand-100 flex items-center justify-center mb-5">
+              <svg class="w-6 h-6 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Agendamento Inteligente</h3>
+            <p class="text-gray-600 leading-relaxed">A IA recomenda que tarefas fazer e quando&mdash;trabalho profundo nas tuas horas de pico, tarefas administrativas quando estás em baixo.</p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="relative text-center md:text-left">
+          <div class="step-number text-8xl md:text-9xl font-black absolute -top-6 left-1/2 md:left-0 -translate-x-1/2 md:translate-x-0 select-none pointer-events-none leading-none">03</div>
+          <div class="relative bg-white rounded-2xl p-8 shadow-sm card-hover border border-gray-100">
+            <div class="w-12 h-12 rounded-xl bg-brand-100 flex items-center justify-center mb-5">
+              <svg class="w-6 h-6 text-brand-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">Prevenção de Crashes</h3>
+            <p class="text-gray-600 leading-relaxed">Recebe avisos antes de rebentares. EnergyOS deteta o padrão antes de sentires o crash.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PRICING ===================== -->
+  <section id="pricing" class="py-20 md:py-28 bg-white">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-14">
+        <p class="text-brand-600 font-semibold text-sm tracking-widest uppercase mb-3">Preço Simples</p>
+        <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight">Investe na tua energia</h2>
+      </div>
+
+      <div class="max-w-md mx-auto">
+        <div class="pricing-border amber-glow">
+          <div class="pricing-inner p-10 text-center">
+            <!-- Badge -->
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-50 text-brand-700 text-xs font-bold uppercase tracking-wider mb-6">
+              <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+              Mais Popular
+            </div>
+
+            <div class="mb-6">
+              <span class="text-6xl font-black text-gray-900">$14</span>
+              <span class="text-xl text-gray-500 font-medium">/mês</span>
+            </div>
+            <p class="text-gray-500 mb-8">Tudo o que precisas para alinhar o teu trabalho com a tua energia.</p>
+
+            <ul class="text-left space-y-4 mb-10">
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-brand-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span class="text-gray-700">Mapeamento pessoal de ritmo energético</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-brand-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span class="text-gray-700">Recomendações de agenda com IA</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-brand-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span class="text-gray-700">Alertas antecipados de burnout e crash</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-brand-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span class="text-gray-700">Relatórios semanais de performance energética</span>
+              </li>
+              <li class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-brand-500 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                <span class="text-gray-700">Integração com calendário</span>
+              </li>
+            </ul>
+
+            <a href="#bottom-cta" class="block w-full py-4 bg-brand-500 hover:bg-brand-400 text-white font-bold rounded-xl text-center text-lg btn-primary">
+              Obter o Meu Mapa de Energia
+            </a>
+            <p class="text-sm text-gray-400 mt-4">Período grátis incluído &middot; Cancela quando quiseres</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-20 bg-gray-50">
+    <div class="max-w-3xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-extrabold text-slate-900 tracking-tight">Perguntas Rápidas</h2>
+      </div>
+      <div class="space-y-6">
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+          <h3 class="font-bold text-slate-900 mb-2">Preciso de um wearable?</h3>
+          <p class="text-slate-600">Não. EnergyOS funciona com simples check-ins feitos por ti — 30 segundos, algumas vezes por dia. Sem hardware necessário.</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+          <h3 class="font-bold text-slate-900 mb-2">Quão preciso é o mapeamento de energia?</h3>
+          <p class="text-slate-600">91% de precisão após apenas 5 dias de check-ins. A IA fica mais inteligente à medida que a usas.</p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100">
+          <h3 class="font-bold text-slate-900 mb-2">Posso cancelar a qualquer momento?</h3>
+          <p class="text-slate-600">Sim, instantaneamente. Sem compromissos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== BOTTOM CTA ===================== -->
+  <section id="bottom-cta" class="cta-gradient py-20 md:py-28 relative overflow-hidden">
+    <!-- Decorative elements -->
+    <div class="absolute top-0 left-1/3 w-72 h-72 bg-brand-400/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-brand-300/5 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-3xl mx-auto px-6 text-center relative z-10">
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-5">
+        Mapear A Minha Energia
+      </h2>
+      <p class="text-lg text-amber-100/80 mb-10 max-w-xl mx-auto leading-relaxed">
+        Pára de lutar contra a tua biologia. Começa a trabalhar com ela. Junta-te à lista de espera e sê o primeiro a alinhar a tua agenda com a tua energia.
+      </p>
+
+      <!-- Bottom Email Form -->
+      <form action="https://formspree.io/f/maqdqyle" method="POST" class="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-lg mx-auto mb-6">
+        <input type="hidden" name="product" value="energyos" />
+        <input
+          type="email"
+          name="email"
+          placeholder="o-teu@email.com"
+          required
+          class="w-full sm:flex-1 px-5 py-4 rounded-xl bg-white/15 border border-white/20 text-white placeholder-white/50 text-base focus:outline-none input-glow backdrop-blur-sm"
+        />
+        <button
+          type="submit"
+          class="w-full sm:w-auto px-8 py-4 bg-white text-brand-800 font-bold rounded-xl text-base hover:bg-brand-50 transition-all duration-200 whitespace-nowrap flex items-center justify-center gap-2"
+        >
+          Mapear A Minha Energia
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+        </button>
+      </form>
+
+      <p class="text-sm text-amber-200/50">Sem spam, nunca. Cancela a qualquer momento.</p>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="bg-navy-950 border-t border-white/5">
+    <div class="max-w-6xl mx-auto px-6 py-10">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">&#9889;</span>
+          <span class="text-lg font-extrabold text-white tracking-tight">Energy<span class="text-brand-400">OS</span></span>
+        </div>
+        <p class="text-gray-500 text-sm">&copy; 2025 EnergyOS. Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
