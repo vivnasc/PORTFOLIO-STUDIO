@@ -1,0 +1,22 @@
+{
+  "auth": {
+    "login": "Entrar",
+    "signup": "Criar conta",
+    "logout": "Sair"
+  },
+  "nav": {
+    "dashboard": "Painel",
+    "settings": "Definições",
+    "billing": "Pagamento"
+  },
+  "common": {
+    "loading": "A carregar...",
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "create": "Criar",
+    "search": "Pesquisar",
+    "noResults": "Sem resultados"
+  }
+}
